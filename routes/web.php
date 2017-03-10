@@ -43,6 +43,14 @@ $app->put('/posts/{post_id}/comments/{comment_id}', 'PostCommentController@updat
 $app->patch('/posts/{post_id}/comments/{comment_id}', 'PostCommentController@update');
 $app->delete('/posts/{post_id}/comments/{comment_id}', 'PostCommentController@destroy');
 
+// Stores
+$app->get('/stores', 'StoreController@index');
+$app->get('/stores/{storeId}', 'StoreController@show');
+$app->post('/stores', 'StoreController@save');
+$app->put('/stores/{storeId}', 'StoreController@edit');
+$app->delete('/stores/{storeId}', 'StoreController@destroy');
+
+
 // Request an access token
 $app->post('/oauth/access_token', function() use ($app){
     return response()->json($app->make('oauth2-server.authorizer')->issueAccessToken());

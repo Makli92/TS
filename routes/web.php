@@ -50,6 +50,12 @@ $app->post('/stores', 'StoreController@save');
 $app->put('/stores/{storeId}', 'StoreController@edit');
 $app->delete('/stores/{storeId}', 'StoreController@destroy');
 
+// Brands
+$app->get('/brands', 'BrandController@index');
+$app->get('/brands/{brandId}', 'BrandController@show');
+$app->post('/brands', 'BrandController@save');
+$app->put('/brands/{brandId}', 'BrandController@edit');
+$app->delete('/brands/{brandId}', 'BrandController@destroy');
 
 // Request an access token
 $app->post('/oauth/access_token', function() use ($app){

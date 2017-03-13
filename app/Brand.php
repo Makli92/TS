@@ -19,5 +19,12 @@ class Brand extends Model{
      * @var array
      */
 	protected $hidden   = ['created_at', 'updated_at'];
-
+    /**
+     * Define a one-to-many relationship with App\Comment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function mobilePhoneModels(){
+        return $this->hasMany('App\MobilePhoneModel');
+    }
 }

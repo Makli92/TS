@@ -3,9 +3,9 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-use App\User;
-use App\Post;
-use App\Comment;
+use App\Models\User;
+use App\Models\Post;
+use App\Models\Comment;
 
 class DatabaseSeeder extends Seeder {
 

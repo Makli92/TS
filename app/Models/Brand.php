@@ -1,6 +1,6 @@
 <?php 
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,11 +20,11 @@ class Brand extends Model{
      */
 	protected $hidden   = ['created_at', 'updated_at'];
     /**
-     * Define a one-to-many relationship with App\Comment
+     * Define a one-to-many relationship with App\Models\MobilePhoneModel
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function mobilePhoneModels(){
-        return $this->hasMany('App\MobilePhoneModel');
+        return $this->hasMany('App\Models\MobilePhoneModel');
     }
 }

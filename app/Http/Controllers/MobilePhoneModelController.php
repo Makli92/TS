@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Brand;
-use App\MobilePhoneModel;
+use App\Models\Brand;
+use App\Models\MobilePhoneModel;
 
 use Illuminate\Http\Request;
 
@@ -15,7 +15,8 @@ class MobilePhoneModelController extends Controller{
 		$this->middleware('authorize:' . __CLASS__, ['except' => ['index', 'show', 'save', 'edit', 'destroy']]);
 	}
 
-	public function index($brandId){
+	public function index($brandId)
+	{
 
 		$brand = Brand::find($brandId);
 
@@ -38,7 +39,8 @@ class MobilePhoneModelController extends Controller{
 		return $this->success($mobilePhoneModel, 200);
 	}
 
-	public function save(Request $request, $brandId){
+	public function save(Request $request, $brandId)
+	{
 		
 		$brand = Brand::find($brandId);
 
@@ -110,7 +112,7 @@ class MobilePhoneModelController extends Controller{
 			'name' => 'required'
 		];
 
-		if (empty($additionalFields)) {
+		if (!empty($additionalFields)) {
 			$rules = array_merge($rules, $additionalFields);
 		}
 

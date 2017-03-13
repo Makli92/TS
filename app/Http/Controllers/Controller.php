@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
-use App\User;
+use App\Models\User;
 use Gate;
 
 class Controller extends BaseController{

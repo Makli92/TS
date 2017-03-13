@@ -57,12 +57,17 @@ $app->post('/brands', 'BrandController@save');
 $app->put('/brands/{brandId}', 'BrandController@edit');
 $app->delete('/brands/{brandId}', 'BrandController@destroy');
 
-// Mobile Phone Model
+// Mobile Phone Models
 $app->get('/brands/{brandId}/mobilephonemodels', 'MobilePhoneModelController@index');
 $app->get('/brands/{brandId}/mobilephonemodels/{mobilePhoneModelId}', 'MobilePhoneModelController@show');
 $app->post('/brands/{brandId}/mobilephonemodels', 'MobilePhoneModelController@save');
 $app->put('/brands/{brandId}/mobilephonemodels/{mobilePhoneModelId}', 'MobilePhoneModelController@edit');
 $app->delete('/brands/{brandId}/mobilephonemodels/{mobilePhoneModelId}', 'MobilePhoneModelController@destroy');
+
+// Spare Parts
+$app->get('/brands/{brandId}/mobilephonemodels/{mobilePhoneModelId}/spareparts', 'SparePartController@index');
+$app->get('/brands/{brandId}/mobilephonemodels/{mobilePhoneModelId}/spareparts/{sparePartId}', 'SparePartController@show');
+$app->post('/brands/{brandId}/mobilephonemodels/{mobilePhoneModelId}/spareparts', 'SparePartController@save');
 
 // Request an access token
 $app->post('/oauth/access_token', function() use ($app){

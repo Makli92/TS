@@ -29,4 +29,4 @@ class ClientController extends Controller{
 
 		return $this->success($client, 200);
 	}
-}
+} 

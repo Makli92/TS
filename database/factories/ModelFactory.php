@@ -38,3 +38,9 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'is_admin' => mt_rand(0, 1)
     ];
 });
+
+$factory->define(App\Models\WorkOrderStatus::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name
+    ];
+});

@@ -79,6 +79,11 @@ $app->get('/stores/{storeId}/storages/spareparts/{sparePartId}', 'StorageControl
 $app->get('/clients', 'ClientController@index');
 $app->get('/clients/{clientId}', 'ClientController@show');
 
+// Clients
+$app->get('/workorderstatuses', 'WorkOrderStatusController@index');
+$app->get('/workorderstatuses/{workOrderStatusId}', 'WorkOrderStatusController@show');
+
+
 // Request an access token
 $app->post('/oauth/access_token', function() use ($app){
     return response()->json($app->make('oauth2-server.authorizer')->issueAccessToken());

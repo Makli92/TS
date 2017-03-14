@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Comment;
+use App\Models\WorkOrderStatus;
 
 class DatabaseSeeder extends Seeder {
 
@@ -26,6 +27,7 @@ class DatabaseSeeder extends Seeder {
 		factory(User::class, 10)->create();
 		factory(Post::class, 50)->create();
 		factory(Comment::class, 100)->create();
+		factory(WorkOrderStatus::class, 5)->create();
 
 		$this->call('OAuthClientSeeder');
 

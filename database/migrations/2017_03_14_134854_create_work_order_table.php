@@ -20,8 +20,8 @@ class CreateWorkOrderTable extends Migration
             $table->text('imei');
             $table->text('description');
             $table->text('notes');
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('technician_id')->unsigned();
+            $table->foreign('technician_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('work_order_status_id')->unsigned();
             $table->foreign('work_order_status_id')->references('id')->on('work_order_statuses')->onDelete('cascade')->onUpdate('cascade');
             $table->dateTime('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
@@ -53,20 +53,3 @@ class CreateWorkOrderTable extends Migration
         Schema::drop('work_orders');
     }
 }
-
-
-        /*Schema::create('work_orders_spare_parts', function (Blueprint $table) {
-            $table->integer('work_order_id')->unsigned();
-            $table->foreign('work_order_id')->references('id')->on('work_orders')->onDelete('cascade')->onUpdate('cascade');
-
-            $table->integer('spare_part_id')->unsigned();
-            $table->foreign('spare_part_id')->references('id')->on('spare_parts')->onDelete('cascade')->onUpdate('cascade');
-
-            $table->double('cost', 15, 8);
-
-            $table->timestamps()->default(DB::raw('CURRENT_TIMESTAMP'));
-        });*/
-
-
-
-        /*Schema::drop('work_orders_spare_parts');*/

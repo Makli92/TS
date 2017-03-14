@@ -17,8 +17,11 @@ class CreateClientsTable extends Migration
             $table->increments('id');
             $table->integer('store_id')->unsigned();
             $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('spare_part_id')->unsigned();
-            $table->foreign('spare_part_id')->references('id')->on('spare_parts')->onDelete('cascade')->onUpdate('cascade');
+            $table->text('first_name');
+            $table->text('last_name');
+            $table->text('email');
+            $table->text('telephone_number');
+            $table->text('mobile_number');
             $table->integer('amount')->unsigned();
             $table->dateTime('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->dateTime('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));

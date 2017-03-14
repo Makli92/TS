@@ -71,9 +71,13 @@ $app->post('/brands/{brandId}/mobilephonemodels/{mobilePhoneModelId}/spareparts'
 $app->put('/brands/{brandId}/mobilephonemodels/{mobilePhoneModelId}/spareparts', 'SparePartController@edit');
 $app->delete('/brands/{brandId}/mobilephonemodels/{mobilePhoneModelId}/spareparts/{sparePartId}', 'SparePartController@destroy');
 
-// Storage
+// Storages
 $app->get('/stores/{storeId}/storages', 'StorageController@show');
 $app->get('/stores/{storeId}/storages/spareparts/{sparePartId}', 'StorageController@showSparePart');
+
+// Clients
+$app->get('/clients', 'ClientController@index');
+$app->get('/clients/{clientId}', 'ClientController@show');
 
 // Request an access token
 $app->post('/oauth/access_token', function() use ($app){

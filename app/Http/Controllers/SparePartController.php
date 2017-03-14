@@ -85,53 +85,57 @@ class SparePartController extends Controller{
 		return $this->success("The spare part with id {$sparePart->id} has been created and assigned to the mobile phone model with id {$mobilePhoneModelId}", 201);
 	}
 
-	// public function edit(Request $request, $brandId, $mobilePhoneModelId)
-	// {
+	public function edit(Request $request, $brandId, $mobilePhoneModelId, $sparePartId)
+	{
+		$brand = Brand::find($brandId);
 
-	// 	$mobilePhoneModel = MobilePhoneModel::where('brand_id', $brandId)->where('id', $mobilePhoneModelId)->get()->first();
+		if(!$brand){
+			return $this->error("The brand with {$brandId} doesn't exist", 404);
+		}
 
-	// 	if(!$mobilePhoneModel){
-	// 		return $this->error("The mobile phone model with {$mobilePhoneModelId} and brand with id {$brandId} doesn't exist", 404);
-	// 	}
+		$mobilePhoneModel = $brand->mobilePhoneModels()->find($mobilePhoneModelId);
 
-	// 	$additionalFields = [
-	// 		'brand_id' => 'required'
-	// 	];
+		if(!$mobilePhoneModel){
+			return $this->error("The mobile phone model with {$mobilePhoneModelId} doesn't exist", 404);
+		}
 
-	// 	$this->validate($request, $additionalFields);
+		$additionalFields = [
+			'mobile_phone_model_id' => 'required'
+		];
 
-	// 	$brand = Brand::find($request->get('brand_id'));
+		$this->validateRequest($request, $additionalFields);
 
-	// 	if(!$brand){
-	// 		return $this->error("The brand with {$request->get('brand_id')} doesn't exist", 404);
-	// 	}
+		$sparePart = SparePart::find($sparePartId);
+		$sparePart->intrastat_code	= $request->get('intrastat_code');
+		$sparePart->price	= $request->get('price');
+		$sparePart->min_vol	= $request->get('min_vol');
+		$sparePart->description	= $request->get('description');
+		$sparePart->mobile_phone_model_id	= $mobilePhoneModelId;
 
-	// 	$mobilePhoneModel->name 		= $request->get('name');
-	// 	$mobilePhoneModel->brand_id		= $request->get('brand_id');
+		$sparePart->save();
 
-	// 	$mobilePhoneModel->save();
+		return $this->success("The spare part with with id {$sparePartId} has been updated", 200);
+	}
 
-	// 	return $this->success("The mobile phone model with with id {$mobilePhoneModelId} has been updated", 200);
-	// }
+	public function destroy($brandId, $mobilePhoneModelId, $sparePartId)
+	{
+		$brand = Brand::find($brandId);
 
-	// public function destroy($brandId, $mobilePhoneModelId)
-	// {
-	// 	$brand = Brand::find($brandId);
+		if(!$brand){
+			return $this->error("The brand with id {$brandId} doesn't exist", 404);
+		}
 
-	// 	if(!$brand){
-	// 		return $this->error("The brand with id {$brandId} doesn't exist", 404);
-	// 	}
+		$mobilePhoneModel = $brand->mobilePhoneModels()->find($mobilePhoneModelId);
 
-	// 	$mobilePhoneModel = $brand->mobilePhoneModels()->find($mobilePhoneModelId);
+		if(!$mobilePhoneModel){
+			return $this->error("The mobile phone model with id {$mobilePhoneModelId} isn't assigned to the brand with id {$brandId}", 409);
+		}
 
-	// 	if(!$brand->mobilePhoneModels()->find($mobilePhoneModelId)){
-	// 		return $this->error("The mobile phone model with id {$mobilePhoneModelId} isn't assigned to the brand with id {$brandId}", 409);
-	// 	}
+		$sparePart = SparePart::find($sparePartId);
+		$sparePart->delete();
 
-	// 	$mobilePhoneModel->delete();
-
-	// 	return $this->success("The mobile phone model with id {$mobilePhoneModelId} has been removed of the brand {$brandId}", 200);
-	// }
+		return $this->success("The spare part with id {$sparePartId} has been removed of the mobile phone model {$mobilePhoneModelId}", 200);
+	}
 
 	public function validateRequest(Request $request, $additionalFields = null)
 	{

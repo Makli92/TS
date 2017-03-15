@@ -24,9 +24,9 @@ class SparePart extends Model{
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function workOrders()
-    {
-        // Does not work
-        return $this->belongsToMany('App\Models\WorkOrder', 'work_orders_spare_parts', 'spare_part_id', 'work_order_id');
-    }
+    // public function workOrders()
+    // {
+    //     // Does not work
+    //     return $this->belongsToMany('App\Models\WorkOrder', 'work_orders_spare_parts', 'spare_part_id', 'work_order_id');
+    // }
 }

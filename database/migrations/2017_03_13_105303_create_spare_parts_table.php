@@ -13,10 +13,10 @@ class CreateSparePartsTable extends Migration
      */
     public function up()
     {
-        Schema::create('spare_parts', function (Blueprint $table) {
+        Schema::create('spareparts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('mobile_phone_model_id')->unsigned();
-            $table->foreign('mobile_phone_model_id')->references('id')->on('mobile_phone_models')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('mobilephonemodel_id')->unsigned();
+            $table->foreign('mobilephonemodel_id')->references('id')->on('mobilephonemodels')->onDelete('cascade')->onUpdate('cascade');
             $table->text('intrastat_code');
             $table->double('price', 15, 8);
             $table->integer('min_vol')->unsigned();
@@ -33,6 +33,6 @@ class CreateSparePartsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('spare_parts');
+        Schema::drop('spareparts');
     }
 }

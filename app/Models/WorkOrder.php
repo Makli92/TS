@@ -11,7 +11,7 @@ class WorkOrder extends Model{
      *
      * @var array
      */
-    protected $fillable = ['id', 'client_id', 'imei', 'description', 'notes', 'technician_id', 'work_order_status_id'];
+    protected $fillable = ['id', 'client_id', 'imei', 'description', 'notes', 'technician_id', 'workorderstatus_id'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -20,13 +20,13 @@ class WorkOrder extends Model{
      */
     protected $hidden  = ['created_at', 'updated_at'];
 
-   /**
+    /**
      * Define a many-to-many relationship with App\Models\SparePart
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function spareParts()
     {
-        // Does not work
         return $this->belongsToMany('App\Models\SparePart', 'work_orders_spare_parts', 'work_order_id', 'spare_part_id');
-    }}
+    }
+}

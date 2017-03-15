@@ -11,7 +11,7 @@ class SparePart extends Model{
      *
      * @var array
      */
-	protected $fillable = ['id', 'mobile_phone_model_id', 'intrastat_code', 'price', 'min_vol', 'description'];
+	protected $fillable = ['id', 'mobilephonemodel_id', 'intrastat_code', 'price', 'min_vol', 'description'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -19,4 +19,14 @@ class SparePart extends Model{
      * @var array
      */
 	protected $hidden   = ['created_at', 'updated_at'];
+    /**
+     * Define a many-to-many relationship with App\Models\SparePart
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function workOrders()
+    {
+        // Does not work
+        return $this->belongsToMany('App\Models\WorkOrder', 'work_orders_spare_parts', 'spare_part_id', 'work_order_id');
+    }
 }

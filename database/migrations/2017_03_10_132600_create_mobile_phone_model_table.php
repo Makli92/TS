@@ -13,7 +13,7 @@ class CreateMobilePhoneModelTable extends Migration
      */
     public function up()
     {
-        Schema::create('mobile_phone_models', function (Blueprint $table) {
+        Schema::create('mobilephonemodels', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('brand_id')->unsigned();
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade')->onUpdate('cascade');
@@ -30,6 +30,6 @@ class CreateMobilePhoneModelTable extends Migration
      */
     public function down()
     {
-        Schema::drop('mobile_phone_models');
+        Schema::drop('mobilephonemodels');
     }
 }

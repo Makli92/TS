@@ -84,8 +84,8 @@ $app->get('/workorderstatuses', 'WorkOrderStatusController@index');
 $app->get('/workorderstatuses/{workOrderStatusId}', 'WorkOrderStatusController@show');
 
 // Work Orders
-$app->get('/workorders', 'WorkOrderController@index');
-$app->get('/workorders/{workOrder}', 'WorkOrderController@show');
+// $app->get('/workorders', 'WorkOrderController@index');
+// $app->get('/workorders/{workOrder}', 'WorkOrderController@show');
 
 // Request an access token
 $app->post('/oauth/access_token', function() use ($app){

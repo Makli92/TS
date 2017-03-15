@@ -13,7 +13,7 @@ class CreateWorkOrderStatusTable extends Migration
      */
     public function up()
     {
-        Schema::create('work_order_statuses', function (Blueprint $table) {
+        Schema::create('workorderstatuss', function (Blueprint $table) {
             $table->increments('id');
             $table->text('name');
             $table->dateTime('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
@@ -28,6 +28,6 @@ class CreateWorkOrderStatusTable extends Migration
      */
     public function down()
     {
-        Schema::drop('work_order_statuses');
+        Schema::drop('workorderstatuss');
     }
 }

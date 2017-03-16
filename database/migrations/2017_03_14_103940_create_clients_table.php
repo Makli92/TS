@@ -22,9 +22,7 @@ class CreateClientsTable extends Migration
             $table->text('email');
             $table->text('telephone_number');
             $table->text('mobile_number');
-            $table->integer('amount')->unsigned();
-            $table->dateTime('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->dateTime('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamps();
         });
     }
 

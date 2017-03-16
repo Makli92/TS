@@ -24,7 +24,7 @@ class Brand extends Model{
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function mobilePhoneModels(){
-        return $this->hasMany('App\Models\MobilePhoneModel');
-    }
+    // public function mobilePhoneModels(){
+    //     return $this->hasMany('App\Models\MobilePhoneModel');
+    // }
 }

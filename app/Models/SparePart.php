@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class SparePart extends Model{
 
+    protected $table = "spare_parts";
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-	protected $fillable = ['id', 'mobilephonemodel_id', 'intrastat_code', 'net_value', 'min_vol', 'description'];
+	protected $fillable = ['id', 'mobile_phone_model_id', 'intrastat_code', 'net_value', 'min_vol', 'description'];
 
     /**
      * The attributes excluded from the model's JSON form.

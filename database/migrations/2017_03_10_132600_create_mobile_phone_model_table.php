@@ -13,13 +13,12 @@ class CreateMobilePhoneModelTable extends Migration
      */
     public function up()
     {
-        Schema::create('mobilephonemodels', function (Blueprint $table) {
+        Schema::create('mobile_phone_models', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('brand_id')->unsigned();
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade')->onUpdate('cascade');
             $table->text('name');
-            $table->dateTime('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->dateTime('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamps();
         });
     }
 
@@ -30,6 +29,6 @@ class CreateMobilePhoneModelTable extends Migration
      */
     public function down()
     {
-        Schema::drop('mobilephonemodels');
+        Schema::drop('mobile_phone_models');
     }
 }

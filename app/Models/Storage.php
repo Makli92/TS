@@ -11,7 +11,7 @@ class Storage extends Model{
      *
      * @var array
      */
-	protected $fillable = ['id', 'store_id', 'sparepart_id', 'amount'];
+	protected $fillable = ['id', 'store_id', 'spare_part_id', 'amount'];
 
     /**
      * The attributes excluded from the model's JSON form.

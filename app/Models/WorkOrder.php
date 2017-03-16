@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class WorkOrder extends Model{
 
+    protected $table = "work_orders";
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['id', 'client_id', 'imei', 'description', 'notes', 'technician_id', 'workorderstatus_id'];
+    protected $fillable = ['id', 'client_id', 'imei', 'description', 'notes', 'technician_id', 'work_order_status_id'];
 
     /**
      * The attributes excluded from the model's JSON form.

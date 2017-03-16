@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MobilePhoneModel extends Model{
 
+    protected $table = "mobile_phone_models";
     /**
      * The attributes that are mass assignable.
      *

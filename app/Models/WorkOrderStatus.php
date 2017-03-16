@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class WorkOrderStatus extends Model{
 
+    protected $table = "work_order_statuses";
     /**
      * The attributes that are mass assignable.
      *

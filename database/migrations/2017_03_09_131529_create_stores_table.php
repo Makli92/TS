@@ -23,8 +23,7 @@ class CreateStoresTable extends Migration
             $table->string('country', 50);
             $table->double('latitude', 11, 8);
             $table->double('longitude', 11, 8);
-            $table->dateTime('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->dateTime('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamps();
         });
     }
 

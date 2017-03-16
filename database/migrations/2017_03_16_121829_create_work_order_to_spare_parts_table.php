@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStorageTable extends Migration
+class CreateWorkOrderToSparePartsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateStorageTable extends Migration
      */
     public function up()
     {
-        Schema::create('storages', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('store_id')->unsigned();
-            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade')->onUpdate('cascade');
+        Schema::create('work_orders_to_spare_parts', function (Blueprint $table) {
+            $table->integer('work_order_id')->unsigned();
+            $table->foreign('work_order_id')->references('id')->on('work_orders')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('spare_part_id')->unsigned();
             $table->foreign('spare_part_id')->references('id')->on('spare_parts')->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('amount')->unsigned();
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreateStorageTable extends Migration
      */
     public function down()
     {
-        Schema::drop('storages');
+        Schema::drop('work_orders_to_spare_parts');
     }
 }

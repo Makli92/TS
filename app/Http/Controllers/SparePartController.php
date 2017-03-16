@@ -30,6 +30,7 @@ class SparePartController extends Controller{
 			return $this->error("The mobile phone model with Id {$mobilePhoneModelId} doesn't exist", 404);
 		}
 
+		// $spareParts = $mobilePhoneModel->spareParts();
 		$spareParts = SparePart::where('mobile_phone_model_id', $mobilePhoneModelId)->get();
 
 		return $this->success($spareParts, 200);
@@ -49,7 +50,7 @@ class SparePartController extends Controller{
 			return $this->error("The mobile phone model with Id {$mobilePhoneModelId} doesn't exist", 404);
 		}
 
-		$sparePart = SparePart::find($sparePartId);
+		$sparePart = SparePart::find($sparePartId)->mobilePhoneModel();
 
 		if(!$sparePart){
 			return $this->error("The spare part with Id {$sparePartId} doesn't exist", 404);

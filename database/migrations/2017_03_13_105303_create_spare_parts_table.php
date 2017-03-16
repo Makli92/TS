@@ -18,7 +18,7 @@ class CreateSparePartsTable extends Migration
             $table->integer('mobilephonemodel_id')->unsigned();
             $table->foreign('mobilephonemodel_id')->references('id')->on('mobilephonemodels')->onDelete('cascade')->onUpdate('cascade');
             $table->text('intrastat_code');
-            $table->double('price', 15, 8);
+            $table->double('net_value', 15, 8);
             $table->integer('min_vol')->unsigned();
             $table->text('description');
             $table->dateTime('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));

@@ -11,7 +11,7 @@ class SparePart extends Model{
      *
      * @var array
      */
-	protected $fillable = ['id', 'mobilephonemodel_id', 'intrastat_code', 'price', 'min_vol', 'description'];
+	protected $fillable = ['id', 'mobilephonemodel_id', 'intrastat_code', 'net_value', 'min_vol', 'description'];
 
     /**
      * The attributes excluded from the model's JSON form.

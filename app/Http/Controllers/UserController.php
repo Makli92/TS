@@ -11,21 +11,23 @@ class UserController extends Controller{
 
 	public function __construct(){
 
-		$this->middleware('oauth', ['except' => ['index', 'show']]);
-		$this->middleware('authorize:' . __CLASS__, ['except' => ['index', 'show']]);
+		$this->middleware('oauth', ['except' => ['getUsers', 'getUser']]);
+		$this->middleware('authorize:' . __CLASS__, ['except' => ['getUsers', 'getUser', 'createUser']]);
 	}
 
-	public function index(){
+	public function getUsers(){
 
 		$users = User::all();
 		return $this->success($users, 200);
 	}
 
-	public function store(Request $request){
+	public function createUser(Request $request){
 
 		$this->validateRequest($request);
 
 		$user = User::create([
+					'first_name' => $request->get('first_name'),
+					'last_name' => $request->get('last_name'),
 					'email' => $request->get('email'),
 					'password'=> Hash::make($request->get('password'))
 				]);
@@ -33,7 +35,7 @@ class UserController extends Controller{
 		return $this->success("The user with with id {$user->id} has been created", 201);
 	}
 
-	public function show($id){
+	public function getUser($id){
 
 		$user = User::find($id);
 
@@ -44,7 +46,7 @@ class UserController extends Controller{
 		return $this->success($user, 200);
 	}
 
-	public function update(Request $request, $id){
+	public function updateUser(Request $request, $id){
 
 		$user = User::find($id);
 
@@ -62,7 +64,7 @@ class UserController extends Controller{
 		return $this->success("The user with with id {$user->id} has been updated", 200);
 	}
 
-	public function destroy($id){
+	public function deleteUser($id){
 
 		$user = User::find($id);
 

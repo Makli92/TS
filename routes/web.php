@@ -16,33 +16,22 @@ $app->get('/', function () use ($app) {
     return $app->version();
 });
 
-// Posts
-$app->get('/posts','PostController@index');
-$app->post('/posts','PostController@store');
-$app->get('/posts/{post_id}','PostController@show');
-$app->put('/posts/{post_id}', 'PostController@update');
-$app->patch('/posts/{post_id}', 'PostController@update');
-$app->delete('/posts/{post_id}', 'PostController@destroy');
-
 // Users
-$app->get('/users/', 'UserController@index');
-$app->post('/users/', 'UserController@store');
-$app->get('/users/{user_id}', 'UserController@show');
-$app->put('/users/{user_id}', 'UserController@update');
-$app->patch('/users/{user_id}', 'UserController@update');
-$app->delete('/users/{user_id}', 'UserController@destroy');
+$app->get('/users/', 'UserController@getUsers');
+$app->post('/users/', 'UserController@createUser');
+$app->get('/users/{userId}', 'UserController@getUser');
+$app->put('/users/{userId}', 'UserController@updateUser');
+$app->patch('/users/{userId}', 'UserController@updateUser');
+$app->delete('/users/{userId}', 'UserController@deleteUser');
 
-// Comments
-$app->get('/comments', 'CommentController@index');
-$app->get('/comments/{comment_id}', 'CommentController@show');
+// Brands
+$app->get('/brands', 'BrandController@getBrands');
+$app->post('/brands', 'BrandController@createBrand');
+$app->get('/brands/{brandId}', 'BrandController@getBrand');
+$app->put('/brands/{brandId}', 'BrandController@updateBrand');
+$app->delete('/brands/{brandId}', 'BrandController@deleteBrand');
 
-// Comment(s) of a post
-$app->get('/posts/{post_id}/comments', 'PostCommentController@index');
-$app->post('/posts/{post_id}/comments', 'PostCommentController@store');
-$app->put('/posts/{post_id}/comments/{comment_id}', 'PostCommentController@update');
-$app->patch('/posts/{post_id}/comments/{comment_id}', 'PostCommentController@update');
-$app->delete('/posts/{post_id}/comments/{comment_id}', 'PostCommentController@destroy');
-
+/*
 // Stores
 $app->get('/stores', 'StoreController@index');
 $app->get('/stores/{storeId}', 'StoreController@show');
@@ -50,12 +39,7 @@ $app->post('/stores', 'StoreController@save');
 $app->put('/stores/{storeId}', 'StoreController@edit');
 $app->delete('/stores/{storeId}', 'StoreController@destroy');
 
-// Brands
-$app->get('/brands', 'BrandController@index');
-$app->get('/brands/{brandId}', 'BrandController@show');
-$app->post('/brands', 'BrandController@save');
-$app->put('/brands/{brandId}', 'BrandController@edit');
-$app->delete('/brands/{brandId}', 'BrandController@destroy');
+
 
 // Mobile Phone Models
 $app->get('/brands/{brandId}/mobilephonemodels', 'MobilePhoneModelController@index');
@@ -86,7 +70,7 @@ $app->get('/workorderstatuses/{workOrderStatusId}', 'WorkOrderStatusController@s
 // Work Orders
 $app->get('/workorders', 'WorkOrderController@index');
 $app->get('/workorders/{workOrder}', 'WorkOrderController@show');
-
+*/
 // Request an access token
 $app->post('/oauth/access_token', function() use ($app){
     return response()->json($app->make('oauth2-server.authorizer')->issueAccessToken());

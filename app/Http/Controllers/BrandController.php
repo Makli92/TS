@@ -5,22 +5,30 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class BrandController extends Controller{
 
 	public function __construct()
 	{
-		$this->middleware('oauth', ['except' => ['index', 'show']]);
-		$this->middleware('authorize:' . __CLASS__, ['except' => ['index', 'show', 'save', 'edit']]);
+		$this->middleware('oauth', ['except' => ['getBrands', 'getBrand']]);
+		$this->middleware('authorize:' . __CLASS__, ['except' => ['getBrands', 'getBrand']]);
 	}
 
-	public function index()
+	public function getBrands()
 	{
 		$brands = Brand::all();
 		return $this->success($brands, 200);
 	}
 
-	public function show($id)
+	public function createBrand(Request $request)
+	{
+		$this->validateRequest($request);
+		$brand = Brand::create($request->all());
+		return $this->success("The brand with with id {$brand->id} has been created", 201);
+	}
+
+	public function getBrand($id)
 	{
 		$brand = Brand::find($id);
 
@@ -31,16 +39,7 @@ class BrandController extends Controller{
 		return $this->success($brand, 200);
 	}
 
-	public function save(Request $request)
-	{
-		$this->validateRequest($request);
-
-		$brand = Brand::create($request->toArray());
-
-		return $this->success("The brand with with id {$brand->id} has been created", 201);
-	}
-
-	public function edit(Request $request, $id)
+	public function updateBrand(Request $request, $id)
 	{
 		$brand = Brand::find($id);
 
@@ -50,16 +49,14 @@ class BrandController extends Controller{
 
 		$this->validateRequest($request);
 
-		$brand->name 			= $request->get('name');
-
+		$brand->name 		= $request->get('name');
 		$brand->save();
 
 		return $this->success("The brand with with id {$brand->id} has been updated", 200);
 	}
 
-	public function destroy($id)
+	public function deleteBrand($id)
 	{
-
 		$brand = Brand::find($id);
 
 		if(!$brand){
@@ -68,7 +65,7 @@ class BrandController extends Controller{
 
 		$brand->delete();
 
-		return $this->success("The brand with with id {$id} has been deleted along with it's comments", 200);
+		return $this->success("The brand with with id {$id} has been deleted", 200);
 	}
 
 	public function validateRequest(Request $request)

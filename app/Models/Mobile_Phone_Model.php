@@ -25,9 +25,9 @@ class Mobile_Phone_Model extends Model{
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    // public function spareParts(){
-    //     return $this->hasMany('App\Models\SparePart', 'mobile_phone_model_id', 'id');
-    // }
+    public function spareParts(){
+        return $this->hasMany('App\Models\Spare_Part', 'mobile_phone_model_id', 'id');
+    }
 
     public function brand()
     {

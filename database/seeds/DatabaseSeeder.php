@@ -8,7 +8,7 @@ use App\Models\User;
 // use App\Models\Store;
 use App\Models\Brand;
 use App\Models\Mobile_Phone_Model;
-// use App\Models\SparePart;
+use App\Models\Spare_Part;
 // use App\Models\Client;
 // use App\Models\WorkOrder;
 
@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder {
 		User::truncate();
 		Brand::truncate();
 		Mobile_Phone_Model::truncate();
-		// SparePart::truncate();
+		Spare_Part::truncate();
 		// Client::truncate();
 		// WorkOrder::truncate();
 
@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder {
 		factory(User::class, 10)->create();
 		factory(Brand::class, 10)->create();
 		factory(Mobile_Phone_Model::class, 20)->create();
-		// factory(SparePart::class, 100)->create();
+		factory(Spare_Part::class, 100)->create();
 		// factory(Client::class, 100)->create();
 		// factory(WorkOrder::class, 5)->create();
 

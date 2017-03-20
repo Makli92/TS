@@ -47,7 +47,7 @@ $factory->define(App\Models\Client::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Models\SparePart::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Spare_Part::class, function (Faker\Generator $faker) {
     return [
         'mobile_phone_model_id' => mt_rand(1, 10),
         'intrastat_code' => $faker->ean13,

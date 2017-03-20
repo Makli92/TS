@@ -37,6 +37,10 @@ $app->get('/brands/{brandId}/mobilephonemodels', 'MobilePhoneModelController@get
 $app->post('/brands/{brandId}/mobilephonemodels', 'MobilePhoneModelController@createMobilePhoneModel');
 $app->get('/brands/{brandId}/mobilephonemodels/{mobilePhoneModelId}', 'MobilePhoneModelController@getMobilePhoneModel');
 
+// Spare Parts
+$app->get('/spareparts', 'SparePartController@getSpareParts');
+$app->get('/mobilephonemodels/{mobilePhoneModelId}/spareparts', 'SparePartController@getSparePartsByMobilePhoneModelId');
+
 /*
 // Stores
 $app->get('/stores', 'StoreController@index');

@@ -70,7 +70,7 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Models\WorkOrderStatus::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Work_Order_Status::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word
     ];

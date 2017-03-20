@@ -31,8 +31,8 @@ class Spare_Part extends Model{
     //     return $this->belongsToMany('App\Models\WorkOrder', 'work_orders_spare_parts', 'spare_part_id', 'work_order_id');
     // }
 
-//     public function mobilePhoneModel()
-//     {
-//         return $this->belongsTo('App\Models\MobilePhoneModel');
-//     }
+    public function mobilePhoneModel()
+    {
+        return $this->belongsTo('App\Models\Mobile_Phone_Model');
+    }
 }

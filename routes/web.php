@@ -39,7 +39,12 @@ $app->get('/brands/{brandId}/mobilephonemodels/{mobilePhoneModelId}', 'MobilePho
 
 // Spare Parts
 $app->get('/spareparts', 'SparePartController@getSpareParts');
+$app->get('/spareparts/{sparePartId}', 'SparePartController@getSparePart');
 $app->get('/mobilephonemodels/{mobilePhoneModelId}/spareparts', 'SparePartController@getSparePartsByMobilePhoneModelId');
+
+// Work Orders
+$app->get('/workorderstatuses', 'WorkOrderStatusController@getWorkOrderStatuses');
+$app->get('/workorderstatuses/{workOrderStatusId}', 'WorkOrderStatusController@getWorkOrderStatus');
 
 /*
 // Stores
@@ -48,22 +53,6 @@ $app->get('/stores/{storeId}', 'StoreController@show');
 $app->post('/stores', 'StoreController@save');
 $app->put('/stores/{storeId}', 'StoreController@edit');
 $app->delete('/stores/{storeId}', 'StoreController@destroy');
-
-
-
-// Mobile Phone Models
-$app->get('/brands/{brandId}/mobilephonemodels', 'MobilePhoneModelController@index');
-$app->get('/brands/{brandId}/mobilephonemodels/{mobilePhoneModelId}', 'MobilePhoneModelController@show');
-$app->post('/brands/{brandId}/mobilephonemodels', 'MobilePhoneModelController@save');
-$app->put('/brands/{brandId}/mobilephonemodels/{mobilePhoneModelId}', 'MobilePhoneModelController@edit');
-$app->delete('/brands/{brandId}/mobilephonemodels/{mobilePhoneModelId}', 'MobilePhoneModelController@destroy');
-
-// Spare Parts
-$app->get('/brands/{brandId}/mobilephonemodels/{mobilePhoneModelId}/spareparts', 'SparePartController@index');
-$app->get('/brands/{brandId}/mobilephonemodels/{mobilePhoneModelId}/spareparts/{sparePartId}', 'SparePartController@show');
-$app->post('/brands/{brandId}/mobilephonemodels/{mobilePhoneModelId}/spareparts', 'SparePartController@save');
-$app->put('/brands/{brandId}/mobilephonemodels/{mobilePhoneModelId}/spareparts', 'SparePartController@edit');
-$app->delete('/brands/{brandId}/mobilephonemodels/{mobilePhoneModelId}/spareparts/{sparePartId}', 'SparePartController@destroy');
 
 // Storages
 $app->get('/stores/{storeId}/storages', 'StorageController@show');

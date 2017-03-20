@@ -12,8 +12,8 @@ class SparePartController extends Controller{
 
 	public function __construct()
 	{	
-		$this->middleware('oauth', ['except' => ['getSpareParts', 'getSparePartsByMobilePhoneModelId']]);
-		$this->middleware('authorize:' . __CLASS__, ['except' => ['getSpareParts', 'getSparePartsByMobilePhoneModelId']]);
+		$this->middleware('oauth', ['except' => ['getSpareParts', 'getSparePartsByMobilePhoneModelId', 'getSparePart']]);
+		$this->middleware('authorize:' . __CLASS__, ['except' => ['getSpareParts', 'getSparePartsByMobilePhoneModelId', 'getSparePart']]);
 	}
 
 	public function getSpareParts()
@@ -31,5 +31,16 @@ class SparePartController extends Controller{
 		}
 
 		return $this->success($mobilePhoneModel->with('spareParts')->get(), 200);
-	}	
+	}
+
+	public function getSparePart($id)
+	{
+		$sparePart = Spare_Part::find($id);
+
+		if(!$sparePart){
+			return $this->error("The spare part with id {$id} doesn't exist", 404);
+		}
+
+		return $this->success($sparePart, 200);
+	}
 }

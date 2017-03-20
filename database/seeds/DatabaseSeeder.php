@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\User;
-// use App\Models\WorkOrderStatus;
+use App\Models\Work_Order_Status;
 // use App\Models\Store;
 use App\Models\Brand;
 use App\Models\Mobile_Phone_Model;
@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder {
 		// Disable foreign key checking because truncate() will fail
 		DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 
-		// WorkOrderStatus::truncate();
+		Work_Order_Status::truncate();
 		// Store::truncate();
 		User::truncate();
 		Brand::truncate();
@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder {
 		// Client::truncate();
 		// WorkOrder::truncate();
 
-		// factory(WorkOrderStatus::class, 5)->create();
+		factory(Work_Order_Status::class, 5)->create();
 		// factory(Store::class, 10)->create();
 		factory(User::class, 10)->create();
 		factory(Brand::class, 10)->create();

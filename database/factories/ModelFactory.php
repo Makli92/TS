@@ -29,7 +29,7 @@ $factory->define(App\Models\Brand::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Models\MobilePhoneModel::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Mobile_Phone_Model::class, function (Faker\Generator $faker) {
     return [
         'brand_id' => mt_rand(1, 10),
         'name' => $faker->word

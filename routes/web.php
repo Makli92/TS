@@ -31,6 +31,12 @@ $app->get('/brands/{brandId}', 'BrandController@getBrand');
 $app->put('/brands/{brandId}', 'BrandController@updateBrand');
 $app->delete('/brands/{brandId}', 'BrandController@deleteBrand');
 
+// Mobile Phone Models
+$app->get('/mobilephonemodels', 'MobilePhoneModelController@getMobilePhoneModels');
+$app->get('/brands/{brandId}/mobilephonemodels', 'MobilePhoneModelController@getMobilePhoneModelsByBrandId');
+$app->post('/brands/{brandId}/mobilephonemodels', 'MobilePhoneModelController@createMobilePhoneModel');
+$app->get('/brands/{brandId}/mobilephonemodels/{mobilePhoneModelId}', 'MobilePhoneModelController@getMobilePhoneModel');
+
 /*
 // Stores
 $app->get('/stores', 'StoreController@index');

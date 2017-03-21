@@ -76,6 +76,16 @@ class Controller extends BaseController{
     }
 
     /**
+     * Check if the user has the role given.
+     * This method should be called only after validating the access token using OAuthMiddleware Middleware.
+     *
+     * @return boolean
+     */
+    public function hasRole($userRole){
+        return (User::find($this->getUserId())->user_level == $userRole) ? true : false;
+    }
+
+    /**
      * Get the requested action method.
      *
      * @param  \Illuminate\Http\Request  $request

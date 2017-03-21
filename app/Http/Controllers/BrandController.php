@@ -11,8 +11,9 @@ class BrandController extends Controller{
 
 	public function __construct()
 	{
-		$this->middleware('oauth', ['except' => ['getBrands', 'getBrand']]);
+		$this->middleware('oauth', ['except' => ['getBrands'/*, 'getBrand'*/]]);
 		$this->middleware('authorize:' . __CLASS__, ['except' => ['getBrands', 'getBrand']]);
+		$this->middleware('authorize_role:' . __CLASS__ . ',' . 2);
 	}
 
 	public function getBrands()

@@ -68,6 +68,7 @@ $app->routeMiddleware([
 	    'oauth' => \LucaDegasperi\OAuth2Server\Middleware\OAuthMiddleware::class,
 	    // 'oauth-user'=> \LucaDegasperi\OAuth2Server\Middleware\OAuthUserOwnerMiddleware::class,
 	    'authorize' => App\Http\Middleware\Authorize::class,
+        'authorize_role' => App\Http\Middleware\AuthorizeRole::class
 ]);
 
 /*

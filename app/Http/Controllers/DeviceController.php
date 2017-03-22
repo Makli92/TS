@@ -15,6 +15,7 @@ class DeviceController extends Controller{
 		$this->middleware('oauth');
 		$this->middleware('authorize_role:' . __CLASS__ . ',' . config()['roleconfig']['roles']['USER_ADMIN']
 														. ',' . config()['roleconfig']['roles']['USER_TECHNICIAN']
+														. ',' . config()['roleconfig']['roles']['USER_SELLER']
 		);
 	}
 

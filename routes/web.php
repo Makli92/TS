@@ -60,30 +60,13 @@ $app->get('/devices/{deviceId}', 'DeviceController@getDevice');
 $app->put('/devices/{deviceId}', 'DeviceController@updateDevice');
 $app->delete('/devices/{deviceId}', 'DeviceController@deleteDevice');
 
-/*
-// Stores
-$app->get('/stores', 'StoreController@index');
-$app->get('/stores/{storeId}', 'StoreController@show');
-$app->post('/stores', 'StoreController@save');
-$app->put('/stores/{storeId}', 'StoreController@edit');
-$app->delete('/stores/{storeId}', 'StoreController@destroy');
+// Device
+$app->get('/stores', 'StoreController@getStores');
+$app->post('/stores', 'StoreController@createStore');
+$app->get('/stores/{storeId}', 'StoreController@getStore');
+$app->put('/stores/{storeId}', 'StoreController@updateStore');
+$app->delete('/stores/{storeId}', 'StoreController@deleteStore');
 
-// Storages
-$app->get('/stores/{storeId}/storages', 'StorageController@show');
-$app->get('/stores/{storeId}/storages/spareparts/{sparePartId}', 'StorageController@showSparePart');
-
-// Clients
-$app->get('/clients', 'ClientController@index');
-$app->get('/clients/{clientId}', 'ClientController@show');
-
-// Clients
-$app->get('/workorderstatuses', 'WorkOrderStatusController@index');
-$app->get('/workorderstatuses/{workOrderStatusId}', 'WorkOrderStatusController@show');
-
-// Work Orders
-$app->get('/workorders', 'WorkOrderController@index');
-$app->get('/workorders/{workOrder}', 'WorkOrderController@show');
-*/
 // Request an access token
 $app->post('/oauth/access_token', function() use ($app){
     return response()->json($app->make('oauth2-server.authorizer')->issueAccessToken());

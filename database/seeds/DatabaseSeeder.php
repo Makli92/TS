@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Work_Order_Status;
 use App\Models\Device;
-// use App\Models\Store;
+use App\Models\Store;
 use App\Models\Brand;
 use App\Models\Mobile_Phone_Model;
 use App\Models\Spare_Part;
@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder {
 
 		Work_Order_Status::truncate();
 		Device::truncate();
-		// Store::truncate();
+		Store::truncate();
 		User::truncate();
 		Brand::truncate();
 		Mobile_Phone_Model::truncate();
@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder {
 
 		factory(Work_Order_Status::class, 5)->create();
 		factory(Device::class, 50)->create();
-		// factory(Store::class, 10)->create();
+		factory(Store::class, 10)->create();
 		factory(User::class, 10)->create();
 		factory(Brand::class, 10)->create();
 		factory(Mobile_Phone_Model::class, 20)->create();

@@ -46,6 +46,13 @@ $app->get('/mobilephonemodels/{mobilePhoneModelId}/spareparts', 'SparePartContro
 $app->get('/workorderstatuses', 'WorkOrderStatusController@getWorkOrderStatuses');
 $app->get('/workorderstatuses/{workOrderStatusId}', 'WorkOrderStatusController@getWorkOrderStatus');
 
+// VAT values
+$app->get('/vats', 'VATController@getVATs');
+$app->post('/vats', 'VATController@createVAT');
+$app->get('/vats/{vatId}', 'VATController@getVAT');
+$app->put('/vats/{vatId}', 'VATController@updateVAT');
+$app->delete('/vats/{vatId}', 'VATController@deleteVAT');
+
 /*
 // Stores
 $app->get('/stores', 'StoreController@index');

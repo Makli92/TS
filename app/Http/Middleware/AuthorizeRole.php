@@ -13,11 +13,11 @@ class AuthorizeRole
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $controller, $role = 0){
-
+    public function handle($request, Closure $next, $controller, $role = 0)
+    {
         $controller = new $controller();
 
-        if(!$controller->hasRole($role)){
+        if (!$controller->hasRole($role)) {
             return $controller->error("You aren't allowed to perform the requested action", 403);
         }
 

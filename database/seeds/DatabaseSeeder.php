@@ -44,6 +44,29 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('OAuthClientSeeder');
 
+		// VAT table seed
+		DB::table('vat_categories')->truncate();
+		DB::table('vat_categories')->insert(
+				[   'id' => "1",
+					'description' => "Κανονικός",
+					'value' => "24"
+				]
+			);
+
+		DB::table('vat_categories')->insert(
+				[   'id' => "2",
+					'description' => "Μειωμένος",
+					'value' => "13"
+				]
+			);
+
+		DB::table('vat_categories')->insert(
+				[   'id' => "3",
+					'description' => "Υπερμειωμένος",
+					'value' => "6"
+				]
+			);
+
 		// Enable it back
 		DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 	}

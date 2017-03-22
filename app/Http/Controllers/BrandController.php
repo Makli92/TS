@@ -11,14 +11,15 @@ class BrandController extends Controller{
 
 	public function __construct()
 	{
-		$this->middleware('oauth', ['except' => ['getBrands'/*, 'getBrand'*/]]);
+		$this->middleware('oauth', ['except' => ['getBrands']]);
 		$this->middleware('authorize:' . __CLASS__, ['except' => ['getBrands', 'getBrand']]);
-		$this->middleware('authorize_role:' . __CLASS__ . ',' . config()['roleconfig']['roles']['USER_TECHNICIAN']);
+		$this->middleware('authorize_role:' . __CLASS__ . ',' . config()['roleconfig']['roles']['USER_TECHNICIAN'], ['except' => ['getBrands']]);
 	}
 
 	public function getBrands()
 	{
-		$brands = Brand::all();
+		// $brands = Brand::all();
+		$brands = Brand::paginate(5);
 		return $this->success($brands, 200);
 	}
 

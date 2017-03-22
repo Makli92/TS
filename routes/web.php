@@ -53,6 +53,13 @@ $app->get('/vats/{vatId}', 'VATController@getVAT');
 $app->put('/vats/{vatId}', 'VATController@updateVAT');
 $app->delete('/vats/{vatId}', 'VATController@deleteVAT');
 
+// Device
+$app->get('/devices', 'DeviceController@getDevices');
+$app->post('/devices', 'DeviceController@createDevice');
+$app->get('/devices/{deviceId}', 'DeviceController@getDevice');
+$app->put('/devices/{deviceId}', 'DeviceController@updateDevice');
+$app->delete('/devices/{deviceId}', 'DeviceController@deleteDevice');
+
 /*
 // Stores
 $app->get('/stores', 'StoreController@index');

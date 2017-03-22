@@ -86,3 +86,10 @@ $factory->define(App\Models\WorkOrder::class, function (Faker\Generator $faker) 
         'work_order_status_id' => mt_rand(1, 5)
     ];
 });
+
+$factory->define(App\Models\Device::class, function (Faker\Generator $faker) {
+    return [
+        'mobile_phone_model_id' => mt_rand(1, 20),
+        'imei' => $faker->isbn13
+    ];
+});

@@ -4,15 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Brand extends Model{
+class Device extends Model{
 
-    protected $table = 'brands';
+    protected $table = 'devices';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-	protected $fillable = ['id', 'name'];
+	protected $fillable = ['id', 'mobile_phone_model_id', 'imei'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -25,7 +25,7 @@ class Brand extends Model{
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function mobilePhoneModels() {
-        return $this->hasMany('App\Models\Mobile_Phone_Model', 'brand_id');
+    public function mobilePhoneModel() {
+        return $this->belongsTo('App\Models\Mobile_Phone_Model');
     }
 }

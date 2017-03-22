@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\User;
 use App\Models\Work_Order_Status;
+use App\Models\Device;
 // use App\Models\Store;
 use App\Models\Brand;
 use App\Models\Mobile_Phone_Model;
@@ -25,6 +26,7 @@ class DatabaseSeeder extends Seeder {
 		DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 
 		Work_Order_Status::truncate();
+		Device::truncate();
 		// Store::truncate();
 		User::truncate();
 		Brand::truncate();
@@ -34,6 +36,7 @@ class DatabaseSeeder extends Seeder {
 		// WorkOrder::truncate();
 
 		factory(Work_Order_Status::class, 5)->create();
+		factory(Device::class, 50)->create();
 		// factory(Store::class, 10)->create();
 		factory(User::class, 10)->create();
 		factory(Brand::class, 10)->create();
@@ -46,26 +49,20 @@ class DatabaseSeeder extends Seeder {
 
 		// VAT table seed
 		DB::table('vat_categories')->truncate();
-		DB::table('vat_categories')->insert(
-				[   'id' => "1",
-					'description' => "Κανονικός",
-					'value' => "24"
-				]
-			);
+		DB::table('vat_categories')->insert([   
+			'id' => "1",
+			'description' => "Κανονικός",
+			'value' => "24"]);
 
-		DB::table('vat_categories')->insert(
-				[   'id' => "2",
-					'description' => "Μειωμένος",
-					'value' => "13"
-				]
-			);
+		DB::table('vat_categories')->insert([   
+			'id' => "2",
+			'description' => "Μειωμένος",
+			'value' => "13"]);
 
-		DB::table('vat_categories')->insert(
-				[   'id' => "3",
-					'description' => "Υπερμειωμένος",
-					'value' => "6"
-				]
-			);
+		DB::table('vat_categories')->insert([
+		   'id' => "3",
+			'description' => "Υπερμειωμένος",
+			'value' => "6"]);
 
 		// Enable it back
 		DB::statement('SET FOREIGN_KEY_CHECKS = 1');

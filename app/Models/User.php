@@ -30,7 +30,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $hidden = [
-        'created_at', 'updated_at', 'password', 'user_level', 'is_active'
+        'created_at', 'updated_at', 'password', 'user_level', 'is_active', 'pivot'
     ];
 
     /**
@@ -41,14 +41,19 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @return int|boolean
      * @see    https://github.com/lucadegasperi/oauth2-server-laravel/blob/master/docs/authorization-server/password.md
      */
-    public function verify($email, $password){
-
+    public function verify($email, $password)
+    {
         $user = User::where('email', $email)->first();
 
-        if($user && Hash::check($password, $user->password)){
+        if ($user && Hash::check($password, $user->password)) {
             return $user->id;
         }
 
         return false;
+    }
+
+    public function store()
+    {
+        return $this->belongsToMany('App\Models\Store', 'users_to_stores', 'user_id', 'store_id')->select(array('id', 'street', 'phone_number'));
     }
 }

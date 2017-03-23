@@ -9,19 +9,20 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller{
 
-	public function __construct(){
-
-		$this->middleware('oauth', ['except' => ['getUsers', 'getUser']]);
-		$this->middleware('authorize:' . __CLASS__, ['except' => ['getUsers', 'getUser', 'createUser']]);
+	public function __construct()
+	{
+		$this->middleware('oauth');
+		$this->middleware('authorize_role:' . __CLASS__ . ',' . config()['roleconfig']['roles']['USER_ADMIN']);
 	}
 
-	public function getUsers(){
-
-		$users = User::all();
+	public function getUsers()
+	{
+		$users = User::with('store')->paginate(5)->select('firstname', 'lastname');
 		return $this->success($users, 200);
 	}
 
-	public function createUser(Request $request){
+	public function createUser(Request $request)
+	{
 
 		$this->validateRequest($request);
 
@@ -35,7 +36,8 @@ class UserController extends Controller{
 		return $this->success("The user with with id {$user->id} has been created", 201);
 	}
 
-	public function getUser($id){
+	public function getUser($id)
+	{
 
 		$user = User::find($id);
 
@@ -46,7 +48,8 @@ class UserController extends Controller{
 		return $this->success($user, 200);
 	}
 
-	public function updateUser(Request $request, $id){
+	public function updateUser(Request $request, $id)
+	{
 
 		$user = User::find($id);
 
@@ -64,7 +67,8 @@ class UserController extends Controller{
 		return $this->success("The user with with id {$user->id} has been updated", 200);
 	}
 
-	public function deleteUser($id){
+	public function deleteUser($id)
+	{
 
 		$user = User::find($id);
 
@@ -77,8 +81,8 @@ class UserController extends Controller{
 		return $this->success("The user with with id {$id} has been deleted", 200);
 	}
 
-	public function validateRequest(Request $request){
-
+	public function validateRequest(Request $request)
+	{
 		$rules = [
 			'email' => 'required|email|unique:users', 
 			'password' => 'required|min:6'
@@ -87,8 +91,8 @@ class UserController extends Controller{
 		$this->validate($request, $rules);
 	}
 
-	public function isAuthorized(Request $request){
-
+	public function isAuthorized(Request $request)
+	{
 		$resource = "users";
 		// $user     = User::find($this->getArgs($request)["user_id"]);
 

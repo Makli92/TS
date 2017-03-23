@@ -13,9 +13,10 @@ class StoreController extends Controller{
 	{
 		$this->middleware('oauth');
 		$this->middleware('authorize_role:' . __CLASS__ . ',' . config()['roleconfig']['roles']['USER_ADMIN']
+														. ',' . config()['roleconfig']['roles']['USER_STORE_MANAGER']
 														. ',' . config()['roleconfig']['roles']['USER_TECHNICIAN']
 														. ',' . config()['roleconfig']['roles']['USER_SELLER'], 
-														['except' => ['createStore', 'updateStore', 'deleteStore']]
+														['except' => ['createStore', 'updateStore', 'deleteStore', 'getStaff']]
 		);
 		$this->middleware('authorize_role:' . __CLASS__ . ',' . config()['roleconfig']['roles']['USER_ADMIN'], 
 														['except' => ['getStores', 'getStore']]
@@ -81,6 +82,12 @@ class StoreController extends Controller{
 		$store->delete();
 
 		return $this->success("The store with with id {$id} has been deleted", 200);
+	}
+
+	public function getStaff($id)
+	{
+		$staff = Store::find($id)->staff()->get();
+		return $this->success($staff, 200);
 	}
 
 	public function validateRequest(Request $request)

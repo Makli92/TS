@@ -19,6 +19,11 @@ class Store extends Model{
      *
      * @var array
      */
-	protected $hidden   = ['created_at', 'updated_at'];
+	protected $hidden   = ['created_at', 'updated_at', 'pivot'];
+
+    public function staff()
+    {
+        return $this->belongsToMany('App\Models\User', 'users_to_stores', 'store_id', 'user_id')->select(array('id', 'first_name', 'last_name'));
+    }
 
 }

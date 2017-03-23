@@ -17,7 +17,7 @@ $app->get('/', function () use ($app) {
 });
 
 // Users
-$app->get('/users/', 'UserController@getUsers');
+$app->get('/users', 'UserController@getUsers');
 $app->post('/users/', 'UserController@createUser');
 $app->get('/users/{userId}', 'UserController@getUser');
 $app->put('/users/{userId}', 'UserController@updateUser');
@@ -60,12 +60,18 @@ $app->get('/devices/{deviceId}', 'DeviceController@getDevice');
 $app->put('/devices/{deviceId}', 'DeviceController@updateDevice');
 $app->delete('/devices/{deviceId}', 'DeviceController@deleteDevice');
 
-// Device
+// Store
 $app->get('/stores', 'StoreController@getStores');
+$app->get('/stores/{storeId}/users', 'StoreController@getStaff');
 $app->post('/stores', 'StoreController@createStore');
 $app->get('/stores/{storeId}', 'StoreController@getStore');
 $app->put('/stores/{storeId}', 'StoreController@updateStore');
 $app->delete('/stores/{storeId}', 'StoreController@deleteStore');
+
+//Clients
+$app->get('/clients', 'ClientController@getClients');
+$app->get('/admin/clients', 'ClientController@getClientsAdmin');
+$app->get('/stores/{storeId}/clients', 'ClientController@getClientsAdminByStore');
 
 // Request an access token
 $app->post('/oauth/access_token', function() use ($app){

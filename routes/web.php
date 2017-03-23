@@ -70,6 +70,7 @@ $app->delete('/stores/{storeId}', 'StoreController@deleteStore');
 
 //Clients
 $app->get('/clients', 'ClientController@getClients');
+$app->get('/clients/{clientId}', 'ClientController@getClient');
 $app->get('/admin/clients', 'ClientController@getClientsAdmin');
 $app->get('/stores/{storeId}/clients', 'ClientController@getClientsAdminByStore');
 

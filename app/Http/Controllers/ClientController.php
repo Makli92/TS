@@ -14,7 +14,7 @@ class ClientController extends Controller
 	public function __construct() 
 	{
 		$this->middleware('oauth');
-		$this->middleware('authorize_role:' . __CLASS__ . ',' . config()['roleconfig']['roles']['USER_ADMIN'], ['except' => ['getClients']]);
+		$this->middleware('authorize_role:' . __CLASS__ . ',' . config()['roleconfig']['roles']['USER_ADMIN'], ['except' => ['getClients', 'getClient']]);
 		$this->middleware('authorize_role:' . __CLASS__ . ',' . config()['roleconfig']['roles']['USER_STORE_MANAGER']
 													 	. ',' . config()['roleconfig']['roles']['USER_TECHNICIAN']
 													 	. ',' . config()['roleconfig']['roles']['USER_SELLER']
@@ -39,7 +39,24 @@ class ClientController extends Controller
 		$storeId = User::find($this->getUserId())->store->first()->id;
 		$clients = Client::where('store_id', '=', $storeId)->select('id', 'first_name', 'last_name', 'mobile_number', 'phone_number', 'email')->get();
 		return $this->success($clients, 200);
-	}	
+	}
+
+	public function getClient($id)
+	{
+		return $this->success(Client::with('devices.mobilePhoneModel.brand', 'store')->find($id), 200);
+	}
+
+	public function createClient()
+	{
+	}
+
+	public function updateClient()
+	{
+	}
+
+	public function deleteClient()
+	{
+	}
 
 	public function validateRequest(Request $request)
 	{

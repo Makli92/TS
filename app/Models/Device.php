@@ -19,7 +19,7 @@ class Device extends Model{
      *
      * @var array
      */
-	protected $hidden   = ['created_at', 'updated_at'];
+	protected $hidden   = ['created_at', 'updated_at', 'pivot'];
     /**
      * Define a one-to-many relationship with App\Models\Mobile_Phone_Model
      *

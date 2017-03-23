@@ -19,10 +19,15 @@ class Client extends Model{
      *
      * @var array
      */
-	protected $hidden   = ['created_at', 'updated_at', 'created_by_user_id'];
+	protected $hidden   = ['created_at', 'updated_at', 'created_by_user_id', 'pivot'];
 
     public function store()
     {
         return $this->belongsTo('App\Models\Store')->select(array('id', 'street', 'phone_number'));
+    }
+
+    public function devices()
+    {
+        return $this->belongsToMany('App\Models\Device', 'clients_to_devices', 'client_id', 'device_id')/*->select(array('id', 'street', 'phone_number')*/;
     }
 }

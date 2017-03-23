@@ -15,6 +15,7 @@ class CreateTsWorkOrderStatusesTable extends Migration
     {
         Schema::create('work_order_statuses', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('code');
             $table->text('name');
             $table->timestamps();
         });

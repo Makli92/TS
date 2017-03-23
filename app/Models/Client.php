@@ -28,6 +28,6 @@ class Client extends Model{
 
     public function devices()
     {
-        return $this->belongsToMany('App\Models\Device', 'clients_to_devices', 'client_id', 'device_id')/*->select(array('id', 'street', 'phone_number')*/;
+        return $this->belongsToMany('App\Models\Device', 'clients_to_devices', 'client_id', 'device_id');
     }
 }

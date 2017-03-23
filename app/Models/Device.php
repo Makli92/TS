@@ -21,11 +21,11 @@ class Device extends Model{
      */
 	protected $hidden   = ['created_at', 'updated_at', 'pivot'];
     /**
-     * Define a one-to-many relationship with App\Models\Mobile_Phone_Model
+     * Define a one-to-many relationship with App\Models\MobilePhoneModel
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function mobilePhoneModel() {
-        return $this->belongsTo('App\Models\Mobile_Phone_Model');
+        return $this->belongsTo('App\Models\MobilePhoneModel');
     }
 }

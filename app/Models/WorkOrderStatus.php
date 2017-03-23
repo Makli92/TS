@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Work_Order_Status extends Model{
+class WorkOrderStatus extends Model{
 
     protected $table = "work_order_statuses";
     /**
@@ -12,7 +12,7 @@ class Work_Order_Status extends Model{
      *
      * @var array
      */
-    protected $fillable = ['id', 'name'];
+    protected $fillable = ['id', 'code', 'name'];
 
     /**
      * The attributes excluded from the model's JSON form.

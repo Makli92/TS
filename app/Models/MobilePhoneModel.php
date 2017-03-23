@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Mobile_Phone_Model extends Model{
+class MobilePhoneModel extends Model{
 
     protected $table = "mobile_phone_models";
     /**
@@ -26,7 +26,7 @@ class Mobile_Phone_Model extends Model{
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function spareParts(){
-        return $this->hasMany('App\Models\Spare_Part', 'mobile_phone_model_id', 'id');
+        return $this->hasMany('App\Models\SparePart', 'mobile_phone_model_id', 'id');
     }
 
     public function brand()

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
-use App\Models\Mobile_Phone_Model;
+use App\Models\MobilePhoneModel;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -18,7 +18,7 @@ class MobilePhoneModelController extends Controller{
 
 	public function getMobilePhoneModels()
 	{
-		$mobilePhoneModels = Mobile_Phone_Model::all();
+		$mobilePhoneModels = MobilePhoneModel::all();
 		return $this->success($mobilePhoneModels, 200);
 	}
 
@@ -38,7 +38,7 @@ class MobilePhoneModelController extends Controller{
 
 		$this->validateRequest($request);
 
-		$mobilePhoneModel = Mobile_Phone_Model::create([
+		$mobilePhoneModel = MobilePhoneModel::create([
 				'name' => $request->get('name'),
 				'brand_id'=> $brandId
 			]);

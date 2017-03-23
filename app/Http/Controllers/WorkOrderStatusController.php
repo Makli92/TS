@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Work_Order_Status;
+use App\Models\WorkOrderStatus;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -17,12 +17,12 @@ class WorkOrderStatusController extends Controller{
 
 	public function getWorkOrderStatuses()
 	{
-		return $this->success(Work_Order_Status::all(), 200);
+		return $this->success(WorkOrderStatus::all(), 200);
 	}
 
 	public function getWorkOrderStatus($id)
 	{
-		$workOrderStatus = Work_Order_Status::find($id);
+		$workOrderStatus = WorkOrderStatus::find($id);
 
 		if (!$workOrderStatus) {
 			return $this->error("The work order status with id {$id} doesn't exist", 404);

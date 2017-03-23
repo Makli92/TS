@@ -29,7 +29,7 @@ $factory->define(App\Models\Brand::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Models\Mobile_Phone_Model::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\MobilePhoneModel::class, function (Faker\Generator $faker) {
     return [
         'brand_id' => mt_rand(1, 10),
         'name' => $faker->word
@@ -48,7 +48,7 @@ $factory->define(App\Models\Client::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Models\Spare_Part::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\SparePart::class, function (Faker\Generator $faker) {
     return [
         'mobile_phone_model_id' => mt_rand(1, 10),
         'intrastat_code' => $faker->ean13,
@@ -69,12 +69,6 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'password' => $hasher->make("secret"),
         'user_level' => mt_rand(1, 4),
         'is_active' => mt_rand(0, 1)
-    ];
-});
-
-$factory->define(App\Models\Work_Order_Status::class, function (Faker\Generator $faker) {
-    return [
-        'name' => $faker->word
     ];
 });
 

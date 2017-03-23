@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Spare_Part extends Model{
+class SparePart extends Model{
 
     protected $table = "spare_parts";
     /**
@@ -33,6 +33,6 @@ class Spare_Part extends Model{
 
     public function mobilePhoneModel()
     {
-        return $this->belongsTo('App\Models\Mobile_Phone_Model');
+        return $this->belongsTo('App\Models\MobilePhoneModel');
     }
 }

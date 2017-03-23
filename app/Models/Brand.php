@@ -21,11 +21,11 @@ class Brand extends Model{
      */
 	protected $hidden   = ['created_at', 'updated_at'];
     /**
-     * Define a one-to-many relationship with App\Models\Mobile_Phone_Model
+     * Define a one-to-many relationship with App\Models\MobilePhoneModel
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function mobilePhoneModels() {
-        return $this->hasMany('App\Models\Mobile_Phone_Model', 'brand_id');
+        return $this->hasMany('App\Models\MobilePhoneModel', 'brand_id');
     }
 }

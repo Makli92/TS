@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Device;
-use App\Models\Mobile_Phone_Model;
+use App\Models\MobilePhoneModel;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;

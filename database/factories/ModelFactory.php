@@ -38,12 +38,13 @@ $factory->define(App\Models\Mobile_Phone_Model::class, function (Faker\Generator
 
 $factory->define(App\Models\Client::class, function (Faker\Generator $faker) {
     return [
-        'store_id' => mt_rand(1, 10),
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
+        'phone_number' => $faker->phoneNumber,
+        'mobile_number' => $faker->phoneNumber,
         'email' => $faker->email,
-        'telephone_number' => $faker->phoneNumber,
-        'mobile_number' => $faker->phoneNumber
+        'created_by_user_id' => mt_rand(1, 10),
+        'store_id' => mt_rand(1, 10)
     ];
 });
 
@@ -66,7 +67,8 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'last_name' => $faker->lastName,
         'email' => $faker->email,
         'password' => $hasher->make("secret"),
-        'user_level' => mt_rand(1, 3)
+        'user_level' => mt_rand(1, 4),
+        'is_active' => mt_rand(0, 1)
     ];
 });
 

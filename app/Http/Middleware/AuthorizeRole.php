@@ -17,8 +17,6 @@ class AuthorizeRole
     {
         $controller = new $controller();
 
-        print_r($roles);
-
         $hasRole = false;
 
         foreach ($roles as $role) {

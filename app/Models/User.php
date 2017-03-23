@@ -30,7 +30,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $hidden = [
-        'created_at', 'updated_at', 'password', 'user_level',
+        'created_at', 'updated_at', 'password', 'user_level', 'is_active'
     ];
 
     /**

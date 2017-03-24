@@ -11,8 +11,8 @@ class UserController extends Controller{
 
 	public function __construct()
 	{
-		$this->middleware('oauth');
-		$this->middleware('authorize_role:' . __CLASS__ . ',' . config()['roleconfig']['roles']['USER_ADMIN']);
+		$this->middleware('oauth', ['except' => 'createUser']);
+		// $this->middleware('authorize_role:' . __CLASS__ . ',' . config()['roleconfig']['roles']['USER_ADMIN']);
 	}
 
 	public function getUsers()

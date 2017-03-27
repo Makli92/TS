@@ -89,3 +89,16 @@ $factory->define(App\Models\Device::class, function (Faker\Generator $faker) {
         'imei' => $faker->isbn13
     ];
 });
+
+$factory->define(App\Models\WorkOrder::class, function (Faker\Generator $faker) {
+    return [
+        'description' => $faker->paragraph,
+        'notes' => $faker->paragraph,
+        'assigned_to' => mt_rand(1, 10),
+        'client_id' => mt_rand(1, 100),
+        'status_id' => mt_rand(1, 9),
+        'device_id' => mt_rand(1, 50),
+        'created_by' => mt_rand(1, 10),
+        'store_id' => mt_rand(1, 10)
+    ];
+});

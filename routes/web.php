@@ -80,6 +80,7 @@ $app->post('/workorders', 'WorkOrderController@createWorkOrder');
 $app->get('/stores/{storeId}/workorders', 'WorkOrderController@getWorkOrdersByStoreId');
 $app->get('/workorders/{workOrderId}', 'WorkOrderController@getWorkOrder');
 $app->get('/stores/{storeId}/workorders/{workOrderId}', 'WorkOrderController@getWorkOrder');
+
 // Request an access token
 $app->post('/oauth/access_token', function() use ($app){
     return response()->json($app->make('oauth2-server.authorizer')->issueAccessToken());

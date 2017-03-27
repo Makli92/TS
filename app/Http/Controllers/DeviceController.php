@@ -21,7 +21,7 @@ class DeviceController extends Controller{
 
 	public function getDevices()
 	{
-		$devices = Device::with('mobilePhoneModel.brand')->paginate(5);
+		$devices = Device::with('mobilePhoneModel.brand', 'client')->paginate(5);
 		return $this->success($devices, 200);
 	}
 

@@ -28,4 +28,8 @@ class Device extends Model{
     public function mobilePhoneModel() {
         return $this->belongsTo('App\Models\MobilePhoneModel');
     }
+
+    public function client() {
+        return $this->belongsToMany('App\Models\Client', 'clients_to_devices', 'device_id', 'client_id')->withTimestamps()->select(array('id', 'first_name', 'last_name'));
+    }
 }

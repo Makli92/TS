@@ -18,7 +18,7 @@ class SparePartController extends Controller{
 
 	public function getSpareParts()
 	{
-		$spareParts = SparePart::all();
+		$spareParts = SparePart::paginate(15);
 		return $this->success($spareParts, 200);
 	}
 

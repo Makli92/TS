@@ -44,10 +44,11 @@ class WorkOrderController extends Controller{
 			$this->hasRole(config()['roleconfig']['roles']['USER_STORE_MANAGER'])) {
 			$workOrder = $this->workOrder($workOrderId);
 
-			if (User::find($this->getUserId())->store()->get()->first()->id == $workOrder->store_id) {
+			if (User::find($this->getUserId())->store()->get()->first()->id != $workOrder->store_id) {
 				return $this->error('Unauthorized', 403);
 			}
 
+			// print_r($workOrder);
 			return $this->success($workOrder, 200);
 		} else {
 			return $this->success($this->workOrder($workOrderId), 200);
@@ -57,7 +58,7 @@ class WorkOrderController extends Controller{
 	}
 
 	protected function workOrder($workOrderId) {
-		return WorkOrder::find($workOrderId);
+		return WorkOrder::with('spareParts.mobilePhoneModel.brand')->find($workOrderId);
 	}
 
 	public function createWorkOrder(Request $request)
@@ -123,8 +124,7 @@ class WorkOrderController extends Controller{
 			'notes' => 'required',
 			'client_id' => 'required',
 			'device_id' => 'required',
-			'spare_parts' => 'array',
-			'spare_parts.id' => 'required'
+			'spare_parts' => 'array|each|exists:id'
 		];
 
 		$this->validate($request, $rules);

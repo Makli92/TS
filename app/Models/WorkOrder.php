@@ -20,4 +20,11 @@ class WorkOrder extends Model{
      * @var array
      */
     protected $hidden  = ['created_at', 'updated_at'];
+
+    public function spareParts()
+    {
+        return $this->belongsToMany('App\Models\SparePart', 'work_orders_to_spare_parts', 'work_order_id', 'spare_part_id')
+                    ->withPivot('net_value', 'vat_value')
+                    ->select(array('mobile_phone_model_id', 'intrastat_code', 'description', 'work_orders_to_spare_parts.net_value', 'work_orders_to_spare_parts.vat_value'));
+    }
 }

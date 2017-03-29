@@ -6,9 +6,9 @@
 
 return [
     'roles' => [
-        'USER_SELLER'           => 1,
-        'USER_TECHNICIAN'       => 2,
-        'USER_STORE_MANAGER'	=> 3,
-        'USER_ADMIN'			=> 4
+        'seller'	=> 1,
+        'tech'		=> 2,
+        'manager'	=> 3,
+        'superuser'	=> 4
     ]
 ];

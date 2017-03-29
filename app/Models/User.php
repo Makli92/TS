@@ -52,6 +52,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return false;
     }
 
+    public function userLevel()
+    {
+        return $this->user_level;
+    }
+
     public function store()
     {
         return $this->belongsToMany('App\Models\Store', 'users_to_stores', 'user_id', 'store_id')->select(array('id', 'street', 'phone_number'));

@@ -12,12 +12,12 @@ class UserController extends Controller{
 	public function __construct()
 	{
 		$this->middleware('oauth');
-		$this->middleware('authorize_role:' . __CLASS__ . ',' . config()['roleconfig']['roles']['USER_ADMIN']);
+		// $this->middleware('authorize_role:' . __CLASS__ . ',' . config()['roleconfig']['roles']['USER_ADMIN']);
 	}
 
 	public function getUsers()
 	{
-		$users = User::with('store')->paginate(5)->select('firstname', 'lastname');
+		$users = User::with('store')->paginate(5)/*->select('firstname', 'lastname')*/;
 		return $this->success($users, 200);
 	}
 

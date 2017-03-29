@@ -48,7 +48,6 @@ class WorkOrderController extends Controller{
 				return $this->error('Unauthorized', 403);
 			}
 
-			// print_r($workOrder);
 			return $this->success($workOrder, 200);
 		} else {
 			return $this->success($this->workOrder($workOrderId), 200);

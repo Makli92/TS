@@ -1,6 +1,6 @@
 <?php
 
-/*
+use Illuminate\Contracts\Support\Arrayable;/*
 |--------------------------------------------------------------------------
 | Application Routes
 |--------------------------------------------------------------------------
@@ -80,6 +80,10 @@ $app->post('/workorders', 'WorkOrderController@createWorkOrder');
 $app->get('/stores/{storeId}/workorders', 'WorkOrderController@getWorkOrdersByStoreId');
 $app->get('/workorders/{workOrderId}', 'WorkOrderController@getWorkOrder');
 $app->get('/stores/{storeId}/workorders/{workOrderId}', 'WorkOrderController@getWorkOrder');
+
+$app->get('/authorization/levels', function() use ($app){
+    return response()->json(config()['roleconfig']);
+});
 
 // Request an access token
 $app->post('/oauth/access_token', function() use ($app){

@@ -15,6 +15,12 @@ class UserController extends Controller{
 		// $this->middleware('authorize_role:' . __CLASS__ . ',' . config()['roleconfig']['roles']['USER_ADMIN']);
 	}
 
+	public function me()
+	{
+		$me = User::find($this->getUserId());
+		return $this->success($me, 200);
+	}
+
 	public function getUsers()
 	{
 		$users = User::with('store')->paginate(5)->select('firstname', 'lastname');

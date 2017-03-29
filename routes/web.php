@@ -17,6 +17,7 @@ $app->get('/', function () use ($app) {
 });
 
 // Users
+$app->get('/me', 'UserController@me');
 $app->get('/users', 'UserController@getUsers');
 $app->post('/users/', 'UserController@createUser');
 $app->get('/users/{userId}', 'UserController@getUser');
@@ -73,6 +74,11 @@ $app->get('/clients', 'ClientController@getClients');
 $app->get('/clients/{clientId}', 'ClientController@getClient');
 $app->get('/admin/clients', 'ClientController@getClientsAdmin');
 $app->get('/stores/{storeId}/clients', 'ClientController@getClientsAdminByStore');
+
+// Get authorization levels
+$app->get('/authorization/levels', function() use ($app){
+    return response()->json(config()['roleconfig']);
+});
 
 // Request an access token
 $app->post('/oauth/access_token', function() use ($app){

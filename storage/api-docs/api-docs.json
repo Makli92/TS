@@ -1,0 +1,49 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "TS",
+        "version": "0.1"
+    },
+    "paths": {
+        "/brands": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Get all brands"
+                    }
+                }
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Create all brands"
+                    }
+                }
+            }
+        },
+        "/brands/{id}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Get brand"
+                    }
+                }
+            },
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "Update brand"
+                    }
+                }
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "Delete brand"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {}
+}

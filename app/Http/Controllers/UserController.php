@@ -30,8 +30,11 @@ class UserController extends Controller{
 					'first_name' => $request->get('first_name'),
 					'last_name' => $request->get('last_name'),
 					'email' => $request->get('email'),
-					'password'=> Hash::make($request->get('password'))
+					'password'=> Hash::make($request->get('password')),
+					'user_level' => 1
 				]);
+
+		echo "hrema";
 
 		return $this->success("The user with with id {$user->id} has been created", 201);
 	}

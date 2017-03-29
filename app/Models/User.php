@@ -21,7 +21,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      */
     protected $fillable = [
         // 'id', 
-        'first_name', 'last_name', 'email',
+        'first_name', 'last_name', 'email'
     ];
 
     /**
@@ -50,6 +50,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         }
 
         return false;
+    }
+
+    public function userLevel()
+    {
+        return $this->user_level;
     }
 
     public function store()

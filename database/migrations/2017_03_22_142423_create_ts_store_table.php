@@ -15,6 +15,7 @@ class CreateTsStoreTable extends Migration
     {
         Schema::create('stores', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->string('street');
             $table->string('street_number');
             $table->string('phone_number');

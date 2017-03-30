@@ -11,16 +11,16 @@ class StoreController extends Controller{
 
 	public function __construct()
 	{
-		$this->middleware('oauth');
-		$this->middleware('authorize_role:' . __CLASS__ . ',' . config()['roleconfig']['roles']['USER_ADMIN']
-														. ',' . config()['roleconfig']['roles']['USER_STORE_MANAGER']
-														. ',' . config()['roleconfig']['roles']['USER_TECHNICIAN']
-														. ',' . config()['roleconfig']['roles']['USER_SELLER'], 
-														['except' => ['createStore', 'updateStore', 'deleteStore', 'getStaff']]
-		);
-		$this->middleware('authorize_role:' . __CLASS__ . ',' . config()['roleconfig']['roles']['USER_ADMIN'], 
-														['except' => ['getStores', 'getStore']]
-		);
+		$this->middleware('oauth', ['except' => ['getStores']]);
+		// $this->middleware('authorize_role:' . __CLASS__ . ',' . config()['roleconfig']['roles']['SUPERUSER']
+		// 												. ',' . config()['roleconfig']['roles']['MANAGER']
+		// 												. ',' . config()['roleconfig']['roles']['TECH']
+		// 												. ',' . config()['roleconfig']['roles']['SELLER'], 
+		// 												['except' => ['createStore', 'updateStore', 'deleteStore', 'getStaff']]
+		// );
+		// $this->middleware('authorize_role:' . __CLASS__ . ',' . config()['roleconfig']['roles']['SUPERUSER'], 
+		// 												['except' => ['getStores', 'getStore']]
+		// );
 	}
 
 	public function getStores()
@@ -57,6 +57,7 @@ class StoreController extends Controller{
 
 		$this->validateRequest($request);
 
+		$store->name 		= $request->get('name');
 		$store->street 		= $request->get('street');
 		$store->street_number 		= $request->get('street_number');
 		$store->phone_number 		= $request->get('phone_number');
@@ -93,6 +94,7 @@ class StoreController extends Controller{
 	public function validateRequest(Request $request)
 	{
 		$rules = [
+			'name' => 'required',
 			'street' => 'required',
 			'street_number' => 'required',
 			'phone_number' => 'required',

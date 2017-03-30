@@ -12,7 +12,7 @@ class Store extends Model{
      *
      * @var array
      */
-	protected $fillable = ['id', 'street', 'street_number', 'phone_number', 'post_code', 'city', 'country', 'latitude', 'longitude'];
+	protected $fillable = ['id', 'name', 'street', 'street_number', 'phone_number', 'post_code', 'city', 'country', 'latitude', 'longitude'];
 
     /**
      * The attributes excluded from the model's JSON form.

@@ -1,49 +1,244 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "TS",
-        "version": "0.1"
+        "title": "TS API",
+        "license": {
+            "name": "Makli's License"
+        },
+        "version": "1.0.0"
     },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
     "paths": {
         "/brands": {
             "get": {
+                "tags": [
+                    "Brands"
+                ],
+                "description": "Returns all brands",
+                "operationId": "getBrands",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "access_token",
+                        "in": "query",
+                        "description": "User's token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Pagination",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Get all brands"
+                        "description": "A paged array of brands",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Brands"
+                            }
+                        }
                     }
                 }
             },
             "post": {
+                "tags": [
+                    "Brands"
+                ],
+                "description": "Creates new brand",
+                "operationId": "createBrand",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "access_token",
+                        "in": "query",
+                        "description": "User's token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "brand",
+                        "in": "body",
+                        "description": "Brand to add",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Brand"
+                        }
+                    }
+                ],
                 "responses": {
-                    "200": {
-                        "description": "Create all brands"
+                    "201": {
+                        "description": "The newly created brand",
+                        "schema": {
+                            "$ref": "#/definitions/Brand"
+                        }
                     }
                 }
             }
         },
         "/brands/{id}": {
             "get": {
+                "tags": [
+                    "Brands"
+                ],
+                "description": "Returns specific brand",
+                "operationId": "getBrand",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "access_token",
+                        "in": "query",
+                        "description": "User's token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Brand Id to fetch",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Get brand"
+                        "description": "The specific brand",
+                        "schema": {
+                            "$ref": "#/definitions/Brand"
+                        }
                     }
                 }
             },
             "put": {
+                "tags": [
+                    "Brands"
+                ],
+                "description": "Updates brand",
+                "operationId": "updateBrand",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "access_token",
+                        "in": "query",
+                        "description": "User's token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "brand",
+                        "in": "body",
+                        "description": "Brand to add",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Brand"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Update brand"
+                        "description": "The updated brand",
+                        "schema": {
+                            "$ref": "#/definitions/Brand"
+                        }
                     }
                 }
             },
             "delete": {
+                "tags": [
+                    "Brands"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "access_token",
+                        "in": "query",
+                        "description": "User's token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Brand Id to delete",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
                 "responses": {
-                    "200": {
-                        "description": "Delete brand"
+                    "204": {
+                        "description": "The deleted brand",
+                        "schema": {
+                            "$ref": "#/definitions/Brand"
+                        }
                     }
                 }
             }
         }
     },
-    "definitions": {}
+    "definitions": {
+        "Error": {
+            "required": [
+                "code",
+                "message"
+            ],
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "Brands": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Brand"
+            }
+        },
+        "Brand": {
+            "required": [
+                "id",
+                "name"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        }
+    }
 }

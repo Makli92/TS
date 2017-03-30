@@ -4,8 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @SWG\Definition(required={"id", "name"})
+ */
 class Brand extends Model{
 
+    /**
+     * @SWG\Property(property="id", type="integer", format="int64")
+     */
+
+    /**
+     * @SWG\Property(property="name", type="string")
+     */
     protected $table = 'brands';
     /**
      * The attributes that are mass assignable.

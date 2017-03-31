@@ -31,6 +31,16 @@
  * 	   @SWG\Definition(definition="Stores",
  *         type="array",
  *         @SWG\Items(ref="#/definitions/Store")
+ *     ),
+ * 
+ *     @SWG\Definition(definition="WorkOrders",
+ *         type="array",
+ *         @SWG\Items(ref="#/definitions/WorkOrder")
+ *     ),
+ * 
+ *     @SWG\Definition(definition="MobilePhoneModels",
+ *         type="array",
+ *         @SWG\Items(ref="#/definitions/MobilePhoneModel")
  *     )
  * )
  */

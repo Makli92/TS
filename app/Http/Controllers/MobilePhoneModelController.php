@@ -13,9 +13,25 @@ class MobilePhoneModelController extends Controller{
 	public function __construct()
 	{
 		$this->middleware('oauth', ['except' => ['getMobilePhoneModels', 'getMobilePhoneModelsByBrandId', 'createMobilePhoneModel', 'getMobilePhoneModel']]);
-		$this->middleware('authorize:' . __CLASS__, ['except' => ['getMobilePhoneModels', 'getMobilePhoneModelsByBrandId', 'createMobilePhoneModel', 'getMobilePhoneModel']]);
 	}
 
+	/**
+     * @SWG\Get(
+     *     path="/mobilephonemodels",
+     *     description="Returns all mobile phone models",
+     *     operationId="getMobilePhoneModels",
+     *     produces={"application/json"},
+     *     tags={"MobilePhoneModel"},
+     *     @SWG\Response(
+     *         response=200,
+     *         description="An array of mobile phone models",
+     *         @SWG\Schema(
+     *             type="array",
+     *             @SWG\Items(ref="#/definitions/MobilePhoneModels")
+     *         )
+     *     )
+     * )
+     */
 	public function getMobilePhoneModels()
 	{
 		$mobilePhoneModels = MobilePhoneModel::all();

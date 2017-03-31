@@ -202,6 +202,29 @@
                 }
             }
         },
+        "/mobilephonemodels": {
+            "get": {
+                "tags": [
+                    "MobilePhoneModel"
+                ],
+                "description": "Returns all mobile phone models",
+                "operationId": "getMobilePhoneModels",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of mobile phone models",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/MobilePhoneModels"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/stores": {
             "get": {
                 "tags": [
@@ -229,6 +252,46 @@
                             "type": "array",
                             "items": {
                                 "$ref": "#/definitions/Stores"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/workorders": {
+            "get": {
+                "tags": [
+                    "Work Orders"
+                ],
+                "description": "Returns all work orders",
+                "operationId": "getWorkOrders",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "access_token",
+                        "in": "query",
+                        "description": "User's token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Pagination",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of work orders",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/WorkOrders"
                             }
                         }
                     }
@@ -264,7 +327,40 @@
                 "$ref": "#/definitions/Store"
             }
         },
+        "WorkOrders": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/WorkOrder"
+            }
+        },
+        "MobilePhoneModels": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/MobilePhoneModel"
+            }
+        },
         "Brand": {
+            "required": [
+                "id",
+                "name"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "mobile_phone_models": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MobilePhoneModel"
+                    }
+                }
+            }
+        },
+        "MobilePhoneModel": {
             "required": [
                 "id",
                 "name"
@@ -323,6 +419,46 @@
                 },
                 "longitude": {
                     "type": "string"
+                }
+            }
+        },
+        "WorkOrder": {
+            "required": [
+                "id",
+                "description",
+                "notes",
+                "assigned_to",
+                "client_id",
+                "status_id",
+                "device_id",
+                "store_id"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "notes": {
+                    "type": "string"
+                },
+                "assigned_to": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "status_id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "device_id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "store_id": {
+                    "type": "integer",
+                    "format": "int64"
                 }
             }
         }

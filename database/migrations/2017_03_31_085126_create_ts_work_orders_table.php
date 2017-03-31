@@ -17,10 +17,10 @@ class CreateTsWorkOrdersTable extends Migration
             $table->increments('id');
             $table->text('description');
             $table->text('notes');
-            $table->integer('created_by')->unsigned()->nullable();
-            $table->foreign('created_by')->references('id')->on('users')->onDelete('set null')->onUpdate('cascade');
-            $table->integer('assigned_to')->unsigned()->nullable();
-            $table->foreign('assigned_to')->references('id')->on('users')->onDelete('set null')->onUpdate('cascade');
+            $table->integer('created_by_user_id')->unsigned()->nullable();
+            $table->foreign('created_by_user_id')->references('id')->on('users')->onDelete('set null')->onUpdate('cascade');
+            $table->integer('assigned_to_user_id')->unsigned()->nullable();
+            $table->foreign('assigned_to_user_id')->references('id')->on('users')->onDelete('set null')->onUpdate('cascade');
             $table->integer('client_id')->unsigned()->nullable();
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('set null')->onUpdate('cascade');
             $table->integer('status_id')->unsigned()->nullable();

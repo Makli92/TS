@@ -4,15 +4,50 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @SWG\Definition(required={"id", "description", "notes", "assigned_to", "client_id", "status_id", "device_id", "store_id"})
+ */
 class WorkOrder extends Model{
 
+    /**
+     * @SWG\Property(property="id", type="integer", format="int64")
+     */
+
+    /**
+     * @SWG\Property(property="description", type="string")
+     */
+
+    /**
+     * @SWG\Property(property="notes", type="string")
+     */
+
+    /**
+     * @SWG\Property(property="assigned_to_user_id", type="integer", format="int64")
+     */
+
+    /**
+     * @SWG\Property(property="created_by_user_id", type="integer", format="int64")
+     */
+
+    /**
+     * @SWG\Property(property="status_id", type="integer", format="int64")
+     */
+
+    /**
+     * @SWG\Property(property="device_id", type="integer", format="int64")
+     */
+
+    /**
+     * @SWG\Property(property="store_id", type="integer", format="int64")
+     */
+    
     protected $table = "work_orders";
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['id', 'description', 'notes', 'assigned_to', 'client_id', 'status_id', 'device_id', 'store_id'];
+    protected $fillable = ['id', 'description', 'notes', 'assigned_to_user_id', 'created_by_user_id', 'client_id', 'status_id', 'device_id', 'store_id'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -25,6 +60,7 @@ class WorkOrder extends Model{
     {
         return $this->belongsToMany('App\Models\SparePart', 'work_orders_to_spare_parts', 'work_order_id', 'spare_part_id')
                     ->withPivot('net_value', 'vat_value')
-                    ->select(array('mobile_phone_model_id', 'intrastat_code', 'description', 'work_orders_to_spare_parts.net_value', 'work_orders_to_spare_parts.vat_value'));
+                    ->select(array('mobile_phone_model_id', 'intrastat_code', 'description', 'work_orders_to_spare_parts.net_value', 'work_orders_to_spare_parts.vat_value'))
+                    ->withTimestamps();
     }
 }

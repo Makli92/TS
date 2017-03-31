@@ -16,6 +16,10 @@ class Brand extends Model{
     /**
      * @SWG\Property(property="name", type="string")
      */
+
+    /**
+     * @SWG\Property(property="mobile_phone_models", type="array", @SWG\Items(ref="#/definitions/MobilePhoneModel"))
+     */
     protected $table = 'brands';
     /**
      * The attributes that are mass assignable.

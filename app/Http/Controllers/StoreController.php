@@ -16,7 +16,7 @@ class StoreController extends Controller{
 		// 												. ',' . config()['roleconfig']['roles']['MANAGER']
 		// 												. ',' . config()['roleconfig']['roles']['TECH']
 		// 												. ',' . config()['roleconfig']['roles']['SELLER'], 
-		// 												['except' => ['createStore', 'updateStore', 'deleteStore', 'getStaff']]
+		// 												['except' => ['createStore', 'updateStore', 'deleteStore', 'getStaff', 'getStores']]
 		// );
 		// $this->middleware('authorize_role:' . __CLASS__ . ',' . config()['roleconfig']['roles']['SUPERUSER'], 
 		// 												['except' => ['getStores', 'getStore']]

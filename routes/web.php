@@ -81,6 +81,7 @@ $app->post('/workorders', 'WorkOrderController@createWorkOrder');
 $app->get('/stores/{storeId}/workorders', 'WorkOrderController@getWorkOrdersByStoreId');
 $app->get('/workorders/{workOrderId}', 'WorkOrderController@getWorkOrder');
 $app->get('/stores/{storeId}/workorders/{workOrderId}', 'WorkOrderController@getWorkOrder');
+$app->delete('/workorders/{workOrderId}', 'WorkOrderController@deleteWorkOrder');
 
 // Get authorization levels
 $app->get('/authorization/levels', function() use ($app){

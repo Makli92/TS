@@ -75,8 +75,8 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Models\WorkOrder::class, function (Faker\Generator $faker) {
     return [
         'client_id' => mt_rand(1, 100),
-        'created_by' => 1,
-        'assigned_to' => 2,
+        'created_by_user_id' => 1,
+        'assigned_to_user_id' => 2,
         'notes' => $faker->sentence,
         'description' => $faker->sentence,
         'store_id' => 1,

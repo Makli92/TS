@@ -50,7 +50,7 @@ class StoreController extends Controller{
      */
 	public function getStores()
 	{
-		$stores = Store::paginate(3);
+		$stores = Store::paginate(2);
 		return $this->success($stores, 200);
 	}
 

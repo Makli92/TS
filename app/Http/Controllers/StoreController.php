@@ -23,9 +23,34 @@ class StoreController extends Controller{
 		// );
 	}
 
+	/**
+     * @SWG\Get(
+     *     path="/stores",
+     *     description="Returns all stores",
+     *     operationId="getStores",
+     *     produces={"application/json"},
+     *     tags={"Stores"},
+     * 	   @SWG\Parameter(
+     *         name="page",
+     *         in="query",
+     *         description="Pagination",
+     *         required=false,
+     *         type="integer",
+     * 		   format="int64"
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="A paged array of stores",
+     *         @SWG\Schema(
+     *             type="array",
+     *             @SWG\Items(ref="#/definitions/Stores")
+     *         )
+     *     )
+     * )
+     */
 	public function getStores()
 	{
-		$stores = Store::paginate(2);
+		$stores = Store::paginate(3);
 		return $this->success($stores, 200);
 	}
 

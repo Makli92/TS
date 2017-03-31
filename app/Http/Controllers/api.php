@@ -26,6 +26,11 @@
  *     @SWG\Definition(definition="Brands",
  *         type="array",
  *         @SWG\Items(ref="#/definitions/Brand")
+ *     ),
+ * 
+ * 	   @SWG\Definition(definition="Stores",
+ *         type="array",
+ *         @SWG\Items(ref="#/definitions/Store")
  *     )
  * )
  */

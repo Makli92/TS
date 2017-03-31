@@ -201,6 +201,39 @@
                     }
                 }
             }
+        },
+        "/stores": {
+            "get": {
+                "tags": [
+                    "Stores"
+                ],
+                "description": "Returns all stores",
+                "operationId": "getStores",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Pagination",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A paged array of stores",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Stores"
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -225,6 +258,12 @@
                 "$ref": "#/definitions/Brand"
             }
         },
+        "Stores": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Store"
+            }
+        },
         "Brand": {
             "required": [
                 "id",
@@ -236,6 +275,53 @@
                     "format": "int64"
                 },
                 "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "Store": {
+            "required": [
+                "id",
+                "name",
+                "street",
+                "street_number",
+                "phone_number",
+                "post_code",
+                "city",
+                "country",
+                "latitude",
+                "longitude"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "street": {
+                    "type": "string"
+                },
+                "street_number": {
+                    "type": "string"
+                },
+                "phone_number": {
+                    "type": "string"
+                },
+                "post_code": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "latitude": {
+                    "type": "string"
+                },
+                "longitude": {
                     "type": "string"
                 }
             }

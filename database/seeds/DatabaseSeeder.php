@@ -10,7 +10,7 @@ use App\Models\Brand;
 use App\Models\MobilePhoneModel;
 use App\Models\SparePart;
 use App\Models\Client;
-// use App\Models\WorkOrder;
+use App\Models\WorkOrder;
 
 class DatabaseSeeder extends Seeder {
 
@@ -29,19 +29,27 @@ class DatabaseSeeder extends Seeder {
 		MobilePhoneModel::truncate();
 		SparePart::truncate();
 		Client::truncate();
+		WorkOrder::truncate();
 
 		// Stores table seed
 		DB::table('users')->truncate();
-		DB::table('users')->insert(['first_name' => "Παύλος", 'last_name' => "Πωλητής", 'email' => "seller@ts.com", 'password' => "$2y$10$7etbXqlXw7YkDMUNSmJ6ruhsGOc7d3HVnOLDEptyuJecIlWuOQRXK", 'user_level' => "1", 'is_active' => "1"]);
-		DB::table('users')->insert(['first_name' => "Νίκος", 'last_name' => "Τεχνκός", 'email' => "tech@ts.com", 'password' => "$2y$10$7etbXqlXw7YkDMUNSmJ6ruhsGOc7d3HVnOLDEptyuJecIlWuOQRXK", 'user_level' => "2", 'is_active' => "1"]);
-		DB::table('users')->insert(['first_name' => "Δημήτρης", 'last_name' => "Υπεύθυνος", 'email' => "manager@ts.com", 'password' => "$2y$10$7etbXqlXw7YkDMUNSmJ6ruhsGOc7d3HVnOLDEptyuJecIlWuOQRXK", 'user_level' => "3", 'is_active' => "1"]);
-		DB::table('users')->insert(['first_name' => "Γεώργος", 'last_name' => "Σουπεργιούζερ", 'email' => "superuser@ts.com", 'password' => "$2y$10$7etbXqlXw7YkDMUNSmJ6ruhsGOc7d3HVnOLDEptyuJecIlWuOQRXK", 'user_level' => "4", 'is_active' => "1"]);
+		DB::table('users')->insert(['first_name' => "Παύλος", 'last_name' => "Ιωάννου", 'email' => "Pavlos@tssolutions.gr", 'password' => "$2y$10$7etbXqlXw7YkDMUNSmJ6ruhsGOc7d3HVnOLDEptyuJecIlWuOQRXK", 'user_level' => "1", 'is_active' => "1"]);
+		DB::table('users')->insert(['first_name' => "Γιώργος", 'last_name' => "Μαυρίδης", 'email' => "giorgos@tssolutions.gr", 'password' => "$2y$10$7etbXqlXw7YkDMUNSmJ6ruhsGOc7d3HVnOLDEptyuJecIlWuOQRXK", 'user_level' => "2", 'is_active' => "1"]);
+		DB::table('users')->insert(['first_name' => "Αλέξανδρος", 'last_name' => "Δημητρίου", 'email' => "alexandros@tssolutions.gr", 'password' => "$2y$10$7etbXqlXw7YkDMUNSmJ6ruhsGOc7d3HVnOLDEptyuJecIlWuOQRXK", 'user_level' => "3", 'is_active' => "1"]);
+		DB::table('users')->insert(['first_name' => "Γιάννης", 'last_name' => "Αντωνίου", 'email' => "superuser@tssolutions.gr", 'password' => "$2y$10$7etbXqlXw7YkDMUNSmJ6ruhsGOc7d3HVnOLDEptyuJecIlWuOQRXK", 'user_level' => "4", 'is_active' => "1"]);
+
+		DB::table('users_to_stores')->truncate();
+		DB::table('users_to_stores')->insert(['user_id' => "1", 'store_id' => "1"]);
+		DB::table('users_to_stores')->insert(['user_id' => "2", 'store_id' => "1"]);
+		DB::table('users_to_stores')->insert(['user_id' => "3", 'store_id' => "1"]);
+		DB::table('users_to_stores')->insert(['user_id' => "4", 'store_id' => "1"]);
 
 		factory(Device::class, 50)->create();
 		factory(Brand::class, 10)->create();
 		factory(MobilePhoneModel::class, 20)->create();
 		factory(SparePart::class, 100)->create();
 		factory(Client::class, 100)->create();
+		factory(WorkOrder::class, 5)->create();
 
 		$this->call('OAuthClientSeeder');
 

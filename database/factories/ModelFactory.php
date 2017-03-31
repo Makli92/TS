@@ -43,8 +43,8 @@ $factory->define(App\Models\Client::class, function (Faker\Generator $faker) {
         'phone_number' => $faker->phoneNumber,
         'mobile_number' => $faker->phoneNumber,
         'email' => $faker->email,
-        'created_by_user_id' => mt_rand(1, 10),
-        'store_id' => mt_rand(1, 10)
+        'created_by_user_id' => mt_rand(1, 2),
+        'store_id' => 1
     ];
 });
 
@@ -75,11 +75,13 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Models\WorkOrder::class, function (Faker\Generator $faker) {
     return [
         'client_id' => mt_rand(1, 100),
-        'imei' => $faker->isbn13,
-        'description' => $faker->sentence,
+        'created_by' => 1,
+        'assigned_to' => 2,
         'notes' => $faker->sentence,
-        'technician_id' => mt_rand(1, 10),
-        'work_order_status_id' => mt_rand(1, 5)
+        'description' => $faker->sentence,
+        'store_id' => 1,
+        'device_id' => mt_rand(1, 50),
+        'status_id' => mt_rand(1, 5)
     ];
 });
 

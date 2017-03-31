@@ -19,7 +19,7 @@ class SparePart extends Model{
      *
      * @var array
      */
-	protected $hidden   = ['created_at', 'updated_at'];
+	protected $hidden   = ['created_at', 'updated_at', 'pivot'];
     /**
      * Define a many-to-many relationship with App\Models\SparePart
      *

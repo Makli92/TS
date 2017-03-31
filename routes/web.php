@@ -75,6 +75,13 @@ $app->get('/clients/{clientId}', 'ClientController@getClient');
 $app->get('/admin/clients', 'ClientController@getClientsAdmin');
 $app->get('/stores/{storeId}/clients', 'ClientController@getClientsAdminByStore');
 
+// WorkOrders
+$app->get('/workorders', 'WorkOrderController@getWorkOrders');
+$app->post('/workorders', 'WorkOrderController@createWorkOrder');
+$app->get('/stores/{storeId}/workorders', 'WorkOrderController@getWorkOrdersByStoreId');
+$app->get('/workorders/{workOrderId}', 'WorkOrderController@getWorkOrder');
+$app->get('/stores/{storeId}/workorders/{workOrderId}', 'WorkOrderController@getWorkOrder');
+
 // Get authorization levels
 $app->get('/authorization/levels', function() use ($app){
     return response()->json(config()['roleconfig']);

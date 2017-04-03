@@ -1,8 +1,8 @@
 {
-    "name": "omarelgabry/lumen-api-oauth",
-    "description": "A RESTful API based on Lumen micro-framework with OAuth2.",
+    "name": "Makli/TS",
+    "description": "A RESTful API based on Lumen micro-framework with OAuth2, to support custom needs.",
     "keywords": ["lumen", "rest", "api", "oauth", "authentication", "authorization"],
-    "homepage": "https://github.com/OmarElGabry/lumen-api-oauth",
+    "homepage": "https://github.com/Makli92/TS",
     "license": "MIT",
     "type": "project",
     "require": {

@@ -18,6 +18,7 @@ class UserController extends Controller{
 	public function me()
 	{
 		$me = User::find($this->getUserId());
+		echo $me->getRememberToken();
 		return $this->success($me, 200);
 	}
 

@@ -44,6 +44,19 @@ class DatabaseSeeder extends Seeder {
 		DB::table('users_to_stores')->insert(['user_id' => "3", 'store_id' => "1"]);
 		DB::table('users_to_stores')->insert(['user_id' => "4", 'store_id' => "1"]);
 
+		// Custom tokens to use
+		DB::table('oauth_sessions')->truncate();
+		DB::table('oauth_sessions')->insert(['client_id' => "id0", 'owner_type' => "user", 'owner_id' => "1"]);
+		DB::table('oauth_sessions')->insert(['client_id' => "id0", 'owner_type' => "user", 'owner_id' => "2"]);
+		DB::table('oauth_sessions')->insert(['client_id' => "id0", 'owner_type' => "user", 'owner_id' => "3"]);
+		DB::table('oauth_sessions')->insert(['client_id' => "id0", 'owner_type' => "user", 'owner_id' => "4"]);
+
+		DB::table('oauth_access_tokens')->truncate();
+		DB::table('oauth_access_tokens')->insert(['id' => "CihoA0MCVVyiZEvg3vRygf8eLxRzW5g9ktSLJe7V", 'session_id' => "1", 'expire_time' => "2000000000"]);
+		DB::table('oauth_access_tokens')->insert(['id' => "4XGguueeBiMSNrtA6wlnMvmhALBsX7ZtojDXarBX", 'session_id' => "2", 'expire_time' => "2000000000"]);
+		DB::table('oauth_access_tokens')->insert(['id' => "uHEVT4YlnLeiM1Wq4qQc0MloiGN0MJlhJu7ODGMx", 'session_id' => "3", 'expire_time' => "2000000000"]);
+		DB::table('oauth_access_tokens')->insert(['id' => "NFyCSDo3jRgHibAJgYsNbgpsrBrw5w2IFHlcqsCs", 'session_id' => "4", 'expire_time' => "2000000000"]);
+
 		factory(Device::class, 50)->create();
 		factory(Brand::class, 10)->create();
 		factory(MobilePhoneModel::class, 20)->create();

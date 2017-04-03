@@ -39,6 +39,7 @@ $app->configure('roleconfig');
 
 $app->configure('swagger-lume');
 
+
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings

@@ -26,6 +26,7 @@ return [
     | http://git.io/vJLAv
     |
     */
+    // 'api' => [ 'driver' => 'jwt', 'provider' => 'users', ],
 
     'grant_types' => [
         'password' => [

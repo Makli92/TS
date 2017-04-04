@@ -91,6 +91,9 @@ $app->get('/authorization/levels', function() use ($app){
 // Forgot password url
 $app->post('/password/forgot', 'UserController@forgotPassword');
 
+// Forgot password url
+$app->post('/password/reset', 'UserController@resetPassword');
+
 // Request an access token
 $app->post('/oauth/access_token', function() use ($app){
     return response()->json($app->make('oauth2-server.authorizer')->issueAccessToken());

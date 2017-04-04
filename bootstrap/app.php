@@ -39,7 +39,7 @@ $app->configure('roleconfig');
 
 $app->configure('swagger-lume');
 
-
+$app->configure('mail');
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -95,12 +95,12 @@ $app->routeMiddleware([
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(\LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider::class);
 $app->register(\LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider::class); 
 $app->register(\SwaggerLume\ServiceProvider::class);
+$app->register(App\Providers\AppServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

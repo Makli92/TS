@@ -57,6 +57,10 @@ class DatabaseSeeder extends Seeder {
 		DB::table('oauth_access_tokens')->insert(['id' => "uHEVT4YlnLeiM1Wq4qQc0MloiGN0MJlhJu7ODGMx", 'session_id' => "3", 'expire_time' => "2000000000"]);
 		DB::table('oauth_access_tokens')->insert(['id' => "NFyCSDo3jRgHibAJgYsNbgpsrBrw5w2IFHlcqsCs", 'session_id' => "4", 'expire_time' => "2000000000"]);
 
+		DB::table('reset_tokens')->truncate();
+		DB::table('reset_tokens')->insert(['id' => "720f20056e5fc2b18f193abe54403aeI", 'owner_id' => "1", 'expire_time' => "100000000"]);
+		DB::table('reset_tokens')->insert(['id' => "720f20056e5fc2b18f193abe54403aea", 'owner_id' => "2", 'expire_time' => "2000000000"]);
+
 		factory(Device::class, 50)->create();
 		factory(Brand::class, 10)->create();
 		factory(MobilePhoneModel::class, 20)->create();

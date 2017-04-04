@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class BrandController extends Controller{
 

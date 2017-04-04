@@ -8,7 +8,7 @@ class UserTest extends TestCase
 	{
 		$this->post('/oauth/access_token', 
 					[
-						'username' => 'pavlos@tssolutions.gr',
+						'username' => 'Pavlos@tssolutions.gr',
 						'password' => 'secret',
 						'client_id' => 'id0',
 						'client_secret' => 'secret0',
@@ -19,9 +19,24 @@ class UserTest extends TestCase
              ]);
 	}
 
-	public function testForgotPassword()
+	/*public function testForgotPasswordEmailExists()
 	{
-		$this->post('/me')
+		$this->post('/password/forgot', ['email' => 'giorgos@tssolutions.gr'])
+			 ->seeJsonContains(['sent' => true])
+			 ->seeStatusCode(200);
+	}*/
+
+	public function testForgotPasswordEmailNoExists()
+	{
+		$this->post('/password/forgot', ['email' => 'kostahiri@gmail.com'])
+			 ->seeJsonContains(['sent' => false, 'error' => 'email'])
+        	 ->seeStatusCode(400);
+	}
+
+	public function testForgotPasswordResetTokenExists()
+	{
+		$this->post('/password/forgot', ['email' => 'giorgos@tssolutions.gr'])
+			 ->seeJsonContains(['sent' => false, 'error' => 'reset_token'])
         	 ->seeStatusCode(400);
 	}
 

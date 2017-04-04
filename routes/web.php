@@ -88,6 +88,9 @@ $app->get('/authorization/levels', function() use ($app){
     return response()->json(config()['roleconfig']);
 });
 
+// Forgot password url
+$app->post('/password/forgot', 'UserController@forgotPassword');
+
 // Request an access token
 $app->post('/oauth/access_token', function() use ($app){
     return response()->json($app->make('oauth2-server.authorizer')->issueAccessToken());

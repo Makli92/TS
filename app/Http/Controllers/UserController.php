@@ -3,22 +3,107 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Interfaces\PasswordResetter;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
-class UserController extends Controller{
+class UserController extends Controller implements PasswordResetter
+{
+	const DAY_SECONDS = 86.400;
 
 	public function __construct()
 	{
-		$this->middleware('oauth', ['except' => 'createUser']);
-		// $this->middleware('authorize_role:' . __CLASS__ . ',' . config()['roleconfig']['roles']['USER_ADMIN']);
+		$this->middleware('oauth', ['except' => ['createUser', 'forgotPassword']]);
+		// $this->middleware('authorize_role:' . __CLASS__ . ',' . config()['roleconfig']['roles']['SUPERUSER']);
 	}
+
+	public function forgotPassword(Request $request)
+	{
+		$userExists = $this->checkEmail($request->get('email'));
+		
+		if (!$userExists['response']['sent']) {
+			return $this->success($userExists['response'], 400);
+		}
+
+		$user = $userExists['users']->first();
+
+		$resetTokenResponse = $this->checkResetTokenExists($user->id);
+
+		// $reset_tokens = DB::table('reset_tokens')->where('owner_id', $user->id)->get();
+		// if (!$reset_tokens->isEmpty()) {
+		// 	return $this->success(['sent' => false, 'error' => 'reset_token'], 400);
+		// }
+
+		// return $this->success($users['response'], 200);
+		return $this->success($resetTokenResponse, 200);
+	}
+
+	public function checkEmail($email) 
+	{
+		$users = User::where('email', '=', $email)->get();
+		$response;
+
+		if ($users->isEmpty()) {
+			$response = array('sent' => false, 'error' => 'email');
+		} else {
+			$response = array('sent' => true);
+		}
+
+		return array('users' => $users, 'response' => $response);
+	}
+
+    public function checkResetTokenExists($userId) 
+    {
+    	$this->deleteResetTokenInactive($userId);
+
+    	$resetTokens = DB::table('reset_tokens')
+						->where('owner_id', $userId)
+						->where('expire_time', '>', strtotime(date('Y/m/d H:i:s')))
+						->get();
+    	$response;
+
+		if (!$resetTokens->isEmpty()) {
+			$response = array('exists' => true, 'error' => 'reset_token', 'reset_token' => $resetTokens->first()->id);
+		} else {
+			$resetToken = $this->generateResetToken($userId);
+			$response = array('exists' => false, 'reset_token' => $resetToken);
+		}
+
+		return $response;
+    }
+    
+    public function deleteResetTokenInactive()
+    {
+    	// Delete expired tokens
+    	DB::table('reset_tokens')->where('expire_time', '<', strtotime(date('Y/m/d H:i:s')))->delete();
+    }
+
+	public function generateResetToken($userId)
+	{
+		$resetToken = md5(uniqid(strtotime(date('Y/m/d H:i:s')), true));
+
+		DB::table('reset_tokens')->insert(
+		    ['id' => $resetToken, 'owner_id' => $userId, 'expire_time' => strtotime(date('Y/m/d H:i:s')) + self::DAY_SECONDS]
+		);
+
+		return $resetToken;
+	}
+
+    public function sendResetLink()
+    {
+
+    }
+
+    public function resetPassword()
+    {
+
+    }
 
 	public function me()
 	{
 		$me = User::find($this->getUserId());
-		echo $me->getRememberToken();
 		return $this->success($me, 200);
 	}
 

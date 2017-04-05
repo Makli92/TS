@@ -11,14 +11,41 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller implements PasswordResetter
 {
-	const DAY_SECONDS = 86.400;
+	const CONST_DAY_SECONDS = 86.400;
+	private $currentTimeToMillis;
 
 	public function __construct()
 	{
+		$this->currentTimeToMillis = strtotime(date('Y/m/d H:i:s'));
 		$this->middleware('oauth', ['except' => ['createUser', 'forgotPassword', 'resetPassword']]);
 		// $this->middleware('authorize_role:' . __CLASS__ . ',' . config()['roleconfig']['roles']['SUPERUSER']);
 	}
 
+	/**
+     * @SWG\Get(
+     *     path="/me",
+     *     description="If logged in, returns basic details of current user.",
+     *     operationId="me",
+     *     produces={"application/json"},
+     *     tags={"User"},
+     * 	   @SWG\Parameter(
+     *         name="access_token",
+     *         in="query",
+     *         description="User's token",
+     *         required=false,
+     *         type="string"
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="User info retrieved",
+     *         @SWG\Schema(ref="#/definitions/User")
+     *     ),
+     * 	   @SWG\Response(
+     *         response=401,
+     *         description="Invalid token"
+     *     )
+     * )
+     */
 	public function me()
 	{
 		$me = User::find($this->getUserId());
@@ -113,6 +140,35 @@ class UserController extends Controller implements PasswordResetter
 	}
 
 	// PasswordResetter methods' implementation	
+
+	/**
+     * @SWG\Post(
+     *     path="/password/forgot",
+     *     description="Forgot password",
+     *     operationId="forgotPassword",
+     *     produces={"application/json"},
+     *     tags={"User"},
+     * 	   @SWG\Parameter(
+     *         name="email",
+     *         in="body",
+     *         description="User's email",
+     *         required=true,
+     *         type="string",
+	 *         @SWG\Schema(
+	 *           	required={"email"},
+	 *           	@SWG\Property(property="email", type="string")
+	 *         )
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Email sent to user"
+     *     ),
+     * 	   @SWG\Response(
+     *         response=400,
+     *         description="User not found"
+     *     )
+     * )
+     */
 	public function forgotPassword(Request $request)
 	{
 		$userExists = $this->checkEmail($request->get('email'));
@@ -124,7 +180,7 @@ class UserController extends Controller implements PasswordResetter
 		$user = $userExists['users']->first();
 		$resetTokenResponse = $this->checkResetTokenExists($user->id);
 
-		$this->sendResetLink($user->first_name . ' ' . $user->last_name, $resetTokenResponse['reset_token']);
+		$this->sendResetLink($user->first_name . ' ' . $user->last_name, $user->email, $resetTokenResponse['reset_token']);
 
 		return $this->success($resetTokenResponse, 200);
 	}
@@ -147,7 +203,7 @@ class UserController extends Controller implements PasswordResetter
 
     	$resetTokens = DB::table('reset_tokens')
 						->where('owner_id', $userId)
-						->where('expire_time', '>', strtotime(date('Y/m/d H:i:s')))
+						->where('expire_time', '>', $this->currentTimeToMillis)
 						->get();
     	$response;
 
@@ -165,13 +221,13 @@ class UserController extends Controller implements PasswordResetter
     public function deleteResetTokenInactive($userId)
     {
     	// Delete expired tokens
-    	DB::table('reset_tokens')->where('expire_time', '<', strtotime(date('Y/m/d H:i:s')))->where('owner_id', $userId)->delete();
+    	DB::table('reset_tokens')->where('expire_time', '<', $this->currentTimeToMillis)->where('owner_id', $userId)->delete();
     }
 
 	public function generateResetToken($userId)
 	{
-		$resetToken = md5(uniqid(strtotime(date('Y/m/d H:i:s')), true));
-		$resetTokenExpirationTime = strtotime(date('Y/m/d H:i:s')) + self::DAY_SECONDS;
+		$resetToken = md5(uniqid($this->currentTimeToMillis, true));
+		$resetTokenExpirationTime = $this->currentTimeToMillis + self::CONST_DAY_SECONDS;
 
 		DB::table('reset_tokens')->insert(
 		    ['id' => $resetToken, 'owner_id' => $userId, 'expire_time' => $resetTokenExpirationTime]
@@ -180,16 +236,70 @@ class UserController extends Controller implements PasswordResetter
 		return array('reset_token' => $resetToken, 'expire_time' => $resetTokenExpirationTime);
 	}
 
-    public function sendResetLink($userFullName, $resetToken)
+    public function sendResetLink($userFullName, $userEmail, $resetToken)
     {
     	$mailer = app()['mailer'];
 
-		$mailer->raw('To reset your code please click on the following link : ' . $resetToken, function ($mail) use($userFullName) {
+		$mailer->raw('To reset your code please click on the following link : ' . $resetToken, function ($mail) use ($userFullName, $userEmail) {
             $mail->from('ts@ts.com', 'TS Biz Suite');
-            $mail->to('ap@anaxoft.com', $userFullName)->subject('Password Reset Link');
+            $mail->to($userEmail, $userFullName)->subject('Password Reset Link');
         });
     }
 
+	/**
+     * @SWG\Post(
+     *     path="/password/reset",
+     *     description="Reset password with given reset token",
+     *     operationId="resetPassword",
+     *     produces={"application/json"},
+     *     tags={"User"},
+     * 	   @SWG\Parameter(
+     *         name="reset_token",
+     *         in="body",
+     *         description="Reset token",
+     *         required=true,
+     *         type="string",
+	 *         @SWG\Schema(
+	 *           	required={"email"},
+	 *           	@SWG\Property(property="reset_token", type="string")
+	 *         )
+     *     ),
+     * 	   @SWG\Parameter(
+     *         name="password_field",
+     *         in="body",
+     *         description="Password",
+     *         required=true,
+     *         type="string",
+	 *         @SWG\Schema(
+	 *           	required={"email"},
+	 *           	@SWG\Property(property="password_field", type="string")
+	 *         )
+     *     ),
+     * 	   @SWG\Parameter(
+     *         name="password_field_verification",
+     *         in="body",
+     *         description="Password Verification",
+     *         required=true,
+     *         type="string",
+	 *         @SWG\Schema(
+	 *           	required={"email"},
+	 *           	@SWG\Property(property="password_field_verification", type="string")
+	 *         )
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Password resetted"
+     *     ),
+     * 	   @SWG\Response(
+     *         response=498,
+     *         description="Invalid reset token"
+     *     ),
+     * 	   @SWG\Response(
+     *         response=412,
+     *         description="Password mismatch"
+     *     )
+     * )
+     */
     public function resetPassword(Request $request)
     {
     	$resetToken = DB::table('reset_tokens')
@@ -201,7 +311,7 @@ class UserController extends Controller implements PasswordResetter
     		return $this->error(['error' => 'Invalid token.'], 498);
     	}
 
-    	if (strtotime(date('Y/m/d H:i:s')) > $resetToken->expire_time) {
+    	if ($this->currentTimeToMillis > $resetToken->expire_time) {
     		return $this->error(['error' => 'Token expired.'], 498);
     	}
 
@@ -221,6 +331,7 @@ class UserController extends Controller implements PasswordResetter
 
     public function deleteResetToken($resetToken) 
     {
+    	// Delete token after use
     	DB::table('reset_tokens')->where('id', $resetToken->id)->delete();
     }
 

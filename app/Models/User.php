@@ -11,9 +11,40 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * @SWG\Definition(required={"id", "first_name", "last_name", "email", "password", "user_level", "is_active"})
+ */
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable, Authorizable;
+
+    /**
+     * @SWG\Property(property="id", type="integer", format="int64")
+     */
+
+    /**
+     * @SWG\Property(property="first_name", type="string")
+     */
+
+    /**
+     * @SWG\Property(property="last_name", type="string")
+     */
+
+    /**
+     * @SWG\Property(property="email", type="string")
+     */
+
+    /**
+     * @SWG\Property(property="password", type="string")
+     */
+
+    /**
+     * @SWG\Property(property="user_level", type="integer", format="int64")
+     */
+
+    /**
+     * @SWG\Property(property="is_active", type="integer", format="int64")
+     */
 
     /**
      * The attributes that are mass assignable.
@@ -21,8 +52,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'id', 
-        'first_name', 'last_name', 'email'
+        'id', 'first_name', 'last_name', 'email'
     ];
 
     /**

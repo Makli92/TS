@@ -3,7 +3,7 @@
 /**
  * @SWG\Swagger(
  *     @SWG\Info(
- *         version="1.0.0",
+ *         version="4.2.0",
  *         title="TS API",
  *         @SWG\License(name="Makli's License")
  *     ),
@@ -41,6 +41,12 @@
  *     @SWG\Definition(definition="MobilePhoneModels",
  *         type="array",
  *         @SWG\Items(ref="#/definitions/MobilePhoneModel")
+ *     ),
+ * 
+ *     @SWG\Definition(definition="Users",
+ *         type="array",
+ *         @SWG\Items(ref="#/definitions/User")
  *     )
+ * 
  * )
  */

@@ -40,36 +40,36 @@ class UserTest extends TestCase
         	 ->seeStatusCode(200);
 	}
 
-	public function testResetPasswordExpiredToken() {
+	public function testResetPasswordExpiredToken() 
+	{
 		$this->post('/password/reset', ['reset_token' => '720f20056e5fc2b18f193abe54403aeI', 'password_field' => '123', 'password_field_verification' => '123'])
 			 ->seeJsonContains(['error' => 'Token expired.'])
         	 ->seeStatusCode(498);
 	}
 
-	public function testResetPasswordMismatch() {
+	public function testResetPasswordMismatch() 
+	{
 		$this->post('/password/reset', ['reset_token' => '720f20056e5fc2b18f193abe54403aea', 'password_field' => '123', 'password_field_verification' => '1234'])
 			 ->seeJsonContains(['error' => 'Passwords provided do not match.'])
         	 ->seeStatusCode(412);
 	}
 
-	public function testResetPasswordInvalidToken() {
+	public function testResetPasswordInvalidToken() 
+	{
 		$this->post('/password/reset', ['reset_token' => '720f20056e5fc2b18f193abe54403aeaNONEXISTENT', 'password_field' => '123', 'password_field_verification' => '123'])
 			 ->seeJsonContains(['error' => 'Invalid token.'])
         	 ->seeStatusCode(498);
 	}
 
-	public function testResetPassword() {
+	public function testResetPassword() 
+	{
 		$this->post('/password/reset', ['reset_token' => '720f20056e5fc2b18f193abe54403aea', 'password_field' => '123', 'password_field_verification' => '123'])
 			 ->seeJsonContains(['data' => ''])
  			 ->seeStatusCode(200);
 	}
 
-	
-
-	
-
     public function testMeUnauthenticated()
-    {   
+    {
         $this->get('/me')
         	 ->seeStatusCode(400);
     }

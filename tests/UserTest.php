@@ -4,6 +4,7 @@ use Laravel\Lumen\Testing\DatabaseTransactions;
 
 class UserTest extends TestCase
 {
+	/*
 	public function testOauth() 
 	{
 		$this->post('/oauth/access_token', 
@@ -83,5 +84,57 @@ class UserTest extends TestCase
 				    "last_name" => "Ιωάννου",
 				    "email" => "Pavlos@tssolutions.gr"
              ]);
+    }*/
+
+    public function testCreateUserAuthenticationRequired()
+    {
+    	$this->post('/users')
+             ->seeJsonContains([
+                	"error" => "invalid_request",
+  					"error_description" => "The request is missing a required parameter, includes an invalid parameter value, includes a parameter more than once, or is otherwise malformed. Check the \"access token\" parameter."
+             ]);
     }
+
+    public function testCreateUserAccessDenied()
+    {
+    	$this->post('/users', ['access_token' => '4XGguueeBiMSNrtA6wlnMvmhALBsX7ZtojDXarBX'])
+             ->seeJsonContains([
+                	"message" => "You aren't allowed to perform the requested action"
+             ]);
+    }
+
+    public function testCreateUserSuperUser()
+    {
+    	$this->post('/users', [	'access_token' => 'NFyCSDo3jRgHibAJgYsNbgpsrBrw5w2IFHlcqsCs', 
+    							'users' => [
+    								'first_name' 	=> 'Makli',
+    								'last_name'		=> 'Tahiri',
+    								'email'			=> 'kt@anaxoft.com',
+    								'password'		=> 'password',
+    								'stores' => [
+    									'id'	=> 2,
+    									'id'	=> 3
+    								]
+    							]])
+             ->seeJsonContains([
+                	'first_name' => 'Makli'
+             ]);
+    }
+
+    // public function testCreateUserManager()
+    // {
+    // 	$this->post('/users', [	'access_token' => 'uHEVT4YlnLeiM1Wq4qQc0MloiGN0MJlhJu7ODGMx', 
+    // 							'user' => [
+    // 								'first_name' 	=> 'Makli',
+    // 								'last_name'		=> 'Tahiri',
+    // 								'email'			=> 'kt@anaxoft.com',
+    // 								'password'		=> 'pass',
+    // 								'store' => [
+    // 									'id'	=> 2
+    // 								]
+    // 							]])
+    //          ->seeJsonContains([
+    //             	'first_name' => 'Makli'
+    //          ]);
+    // }
 }

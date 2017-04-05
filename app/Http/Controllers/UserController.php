@@ -11,14 +11,17 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller implements PasswordResetter
 {
-	const CONST_DAY_SECONDS = 86.400;
+	const CONST_RESET_TOKEN_EXPIRATION_SECONDS = 86.400;
 	private $currentTimeToMillis;
 
 	public function __construct()
 	{
 		$this->currentTimeToMillis = strtotime(date('Y/m/d H:i:s'));
-		$this->middleware('oauth', ['except' => ['createUser', 'forgotPassword', 'resetPassword']]);
-		// $this->middleware('authorize_role:' . __CLASS__ . ',' . config()['roleconfig']['roles']['SUPERUSER']);
+		$this->middleware('oauth', 
+							['except' => ['forgotPassword', 'resetPassword']]);
+		$this->middleware('authorize_role:' . __CLASS__ . ',' . config()['roleconfig']['roles']['SUPERUSER']
+														. ',' . config()['roleconfig']['roles']['MANAGER'], 
+							['except' => ['forgotPassword', 'resetPassword']]);
 	}
 
 	/**
@@ -52,31 +55,58 @@ class UserController extends Controller implements PasswordResetter
 		return $this->success($me, 200);
 	}
 
-	public function getUsers()
+	/*public function getUsers()
 	{
 		$users = User::with('store')->paginate(5)->select('firstname', 'lastname');
 		return $this->success($users, 200);
-	}
+	}*/
 
 	public function createUser(Request $request)
 	{
-
 		$this->validateRequest($request);
 
-		$user = User::create([
-					'first_name' => $request->get('first_name'),
-					'last_name' => $request->get('last_name'),
-					'email' => $request->get('email'),
-					'password'=> Hash::make($request->get('password')),
-					'user_level' => 1
-				]);
+		switch (User::find($this->getUserId())->user_level) {
+			case config()['roleconfig']['roles']['SUPERUSER']:
+				$hasher = app()->make('hash');
 
-		echo "hrema";
+				$user = $this->userConstructor($request);
 
-		return $this->success("The user with with id {$user->id} has been created", 201);
+				return $this->success($user, 201);
+				break;
+			case config()['roleconfig']['roles']['MANAGER']:
+				# code...
+				break;
+			default:
+				break;
+		}
+
+		return $this->success('sucess', 201);
 	}
 
-	public function getUser($id)
+	protected function userConstructor(Request $request) {
+		$user = new User();
+		$user->first_name = $request->get('users')['first_name'];
+		$user->last_name = $request->get('users')['last_name'];
+		$user->email = $request->get('users')['email'];
+		$user->setPassword($request->get('users')['password']);
+		$user->user_level = config()['roleconfig']['roles']['MANAGER'];
+		$user->is_active = 1;
+
+		$user->save();
+
+
+		return $this->userStoresConstructor($request, $user);
+	}
+
+	protected function userStoresConstructor(Request $request, $user) {
+		print_r($request->get('users'));
+
+		// $workOrder->spareParts()->sync(array(1 => array('net_value' => '20.00', 'vat_value' => '4.8'), 2 => array('net_value' => '10.00', 'vat_value' => '2.4')));
+
+		return $user;
+	}
+
+	/*public function getUser($id)
 	{
 
 		$user = User::find($id);
@@ -105,28 +135,17 @@ class UserController extends Controller implements PasswordResetter
 		$user->save();
 
 		return $this->success("The user with with id {$user->id} has been updated", 200);
-	}
-
-	public function deleteUser($id)
-	{
-
-		$user = User::find($id);
-
-		if(!$user){
-			return $this->error("The user with {$id} doesn't exist", 404);
-		}
-
-		$user->delete();
-
-		return $this->success("The user with with id {$id} has been deleted", 200);
-	}
+	}*/
 
 	public function validateRequest(Request $request)
 	{
 		$rules = [
-			'email' => 'required|email|unique:users', 
-			'password' => 'required|min:6'
-		];
+					'users.first_name' => 'required|max:255', 
+					'users.last_name' => 'required|max:255', 
+					'users.email' => 'required|email|unique:users',
+					'users.password' => 'required|min:6',
+					'users.stores' => 'required|array|min:1'
+				];
 
 		$this->validate($request, $rules);
 	}
@@ -187,7 +206,7 @@ class UserController extends Controller implements PasswordResetter
 
 	public function checkEmail($email) 
 	{
-		$users = User::where('email', '=', $email)->get();
+		$users = User::where('email', '=', $email)->where('is_active', 1)->get();
 		$response = null;
 
 		if ($users->isEmpty()) {
@@ -227,7 +246,7 @@ class UserController extends Controller implements PasswordResetter
 	public function generateResetToken($userId)
 	{
 		$resetToken = md5(uniqid($this->currentTimeToMillis, true));
-		$resetTokenExpirationTime = $this->currentTimeToMillis + self::CONST_DAY_SECONDS;
+		$resetTokenExpirationTime = $this->currentTimeToMillis + self::CONST_RESET_TOKEN_EXPIRATION_SECONDS;
 
 		DB::table('reset_tokens')->insert(
 		    ['id' => $resetToken, 'owner_id' => $userId, 'expire_time' => $resetTokenExpirationTime]

@@ -18,12 +18,7 @@ $app->get('/', function () use ($app) {
 
 // Users
 $app->get('/me', 'UserController@me');
-$app->get('/users', 'UserController@getUsers');
-$app->post('/users/', 'UserController@createUser');
-$app->get('/users/{userId}', 'UserController@getUser');
-$app->put('/users/{userId}', 'UserController@updateUser');
-$app->patch('/users/{userId}', 'UserController@updateUser');
-$app->delete('/users/{userId}', 'UserController@deleteUser');
+$app->post('/users', 'UserController@createUser');
 
 // Brands
 $app->get('/brands', 'BrandController@getBrands');

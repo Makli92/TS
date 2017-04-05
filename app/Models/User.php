@@ -88,8 +88,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->user_level;
     }
 
-    public function store()
+    public function stores()
     {
         return $this->belongsToMany('App\Models\Store', 'users_to_stores', 'user_id', 'store_id')->select(array('id', 'street', 'phone_number'));
+    }
+
+    public function setPassword($password)
+    {
+        $hasher = app()->make('hash');
+        $this->password = $hasher->make($password);
     }
 }
